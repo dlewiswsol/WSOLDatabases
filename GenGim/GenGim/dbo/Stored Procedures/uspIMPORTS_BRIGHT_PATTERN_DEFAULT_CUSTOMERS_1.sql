@@ -1,0 +1,36 @@
+﻿
+
+CREATE PROCEDURE [dbo].[uspIMPORTS_BRIGHT_PATTERN_DEFAULT_CUSTOMERS]
+ @DATE_BEG           DATETIME
+,@DATE_END           DATETIME
+AS
+SET NOCOUNT ON
+
+--  EXECUTE [dbo].[uspIMPORTS_BRIGHT_PATTERN_DEFAULT_CUSTOMERS] '10/16/2017','10/31/2017'
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DECLARE
+ @DTM_BEG AS DATETIME
+,@DTM_END AS DATETIME
+SET @DTM_BEG = CAST(CONVERT(VARCHAR(10),@DATE_BEG,101) AS DATETIME) 
+SET @DTM_END = CAST(CONVERT(VARCHAR(10),@DATE_END,101) AS DATETIME) + 1
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SELECT
+ UA.TENANT_KEY
+,UA.FF_TEAM
+FROM 
+(	SELECT
+	 YT.TENANT_KEY
+	,YT.FF_TEAM
+	--  SELECT *
+	FROM WSOL_TB_IMPORTS_BRIGHT_PATTERN_INVOICING YT
+	WHERE YT.TENANT_KEY <> '0'
+	--WHERE YT.[DATETIME] >= @DTM_BEG AND YT.[DATETIME] <  @DTM_END
+
+	GROUP BY
+	 YT.TENANT_KEY
+	,YT.FF_TEAM
+) UA
+ORDER BY UA.FF_TEAM
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

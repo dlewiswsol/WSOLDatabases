@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[WSOL_TB_IMPORTS_GAR_INVOICING_OUTBOUND_1] (
+    [FF_DATE]                        VARCHAR (50)    NULL,
+    [FF_INTERVAL_30_MINUTES]         VARCHAR (50)    NULL,
+    [FF_AGENT_NAME]                  VARCHAR (100)   NULL,
+    [FF_SKILL_NAME]                  VARCHAR (50)    NULL,
+    [FF_TEAM_NAME]                   VARCHAR (50)    NOT NULL,
+    [FF_CONTACT_ID]                  VARCHAR (50)    NULL,
+    [FF_MASTER_CONTACT_ID]           VARCHAR (50)    NULL,
+    [FF_TALK_TIME]                   VARCHAR (50)    NULL,
+    [FF_ACW_TIME]                    VARCHAR (50)    NULL,
+    [FF_HOLD_TIME]                   VARCHAR (50)    NULL,
+    [SEQNO_ADDED_TIME]               DATETIME        NOT NULL,
+    [SEQNO]                          INT             NOT NULL,
+    [FTP_FILE_NAME]                  VARCHAR (100)   NOT NULL,
+    [DATETIME]                       DATETIME        NULL,
+    [HOUR_INTERVAL]                  INT             NULL,
+    [AGENT_NAME]                     VARCHAR (50)    NULL,
+    [SKILL_NAME]                     VARCHAR (50)    NULL,
+    [TEAM_NAME]                      VARCHAR (50)    NULL,
+    [TALK_TIME]                      DECIMAL (10, 2) NULL,
+    [ACW_TIME]                       DECIMAL (10, 2) NULL,
+    [HOLD_TIME]                      DECIMAL (10, 2) NULL,
+    [TRUE_OUTBOUND_TALK_TIME]        DECIMAL (10, 2) NULL,
+    [STD_TENANT_START_DATE_TIME_KEY] INT             NULL,
+    [ID]                             INT             IDENTITY (1, 1) NOT NULL,
+    CONSTRAINT [PK_WSOL_TB_IMPORTS_GAR_INVOICING_OUTBOUND_1] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+

@@ -1,0 +1,157 @@
+﻿
+CREATE PROCEDURE [dbo].[uspIMPORTS_EGENCIA_INVOICING_IMPORT_UPDATE]
+ @DATE_BEG           DATETIME
+,@DATE_END           DATETIME
+,@PROCESS_TYPE       VARCHAR(4)  
+AS
+SET NOCOUNT ON
+
+--  EXECUTE [dbo].[uspIMPORTS_EGENCIA_INVOICING_IMPORT_UPDATE] '10/01/2017','10/09/2017','AUTO'
+
+--========================================
+-- SET DATE VARIABLES
+--========================================
+DECLARE
+ @DTM_BEG AS DATETIME
+,@DTM_END AS DATETIME
+IF @PROCESS_TYPE = 'AUTO'
+	BEGIN -- Bi-Monthly - Run for 1-15 or 16-EOM
+		IF DAY(dbo.getdate()) > 1 AND DAY(dbo.getdate()) <= 16
+			BEGIN
+				SET @DTM_BEG = CAST(CONVERT(VARCHAR(10), (CONVERT(VARCHAR(2),MONTH(dbo.getdate())) + CONVERT(VARCHAR(4),'/01/') + CONVERT(VARCHAR(4),YEAR(dbo.getdate()))),101) AS DATETIME)
+			END
+		ELSE IF DAY(dbo.getdate()) = 1
+			BEGIN
+				IF MONTH(dbo.getdate()) = 1
+					BEGIN
+						SET @DTM_BEG = CONVERT(DATETIME,CONVERT(VARCHAR(6),'12/16/') + CONVERT(VARCHAR(4),YEAR(dbo.getdate())-1))
+					END
+				ELSE
+					BEGIN
+						SET @DTM_BEG = CAST(CONVERT(VARCHAR(10), (CONVERT(VARCHAR(2),MONTH(dbo.getdate())-1) + CONVERT(VARCHAR(4),'/16/') + CONVERT(VARCHAR(4),YEAR(dbo.getdate()))),101) AS DATETIME)
+					END
+			END
+		ELSE 
+			BEGIN
+				SET @DTM_BEG = CAST(CONVERT(VARCHAR(10), (CONVERT(VARCHAR(2),MONTH(dbo.getdate())) + CONVERT(VARCHAR(4),'/16/') + CONVERT(VARCHAR(4),YEAR(dbo.getdate()))),101) AS DATETIME)
+			END
+		
+		SET @DTM_END = CAST(CONVERT(VARCHAR(10),DATEADD(DD,-1,DBO.GETDATE()),101) AS DATETIME)	-- SET TO YESTERDAY --CAST(CONVERT(VARCHAR(10),@DATE_END,101) AS DATETIME)
+
+	END
+ELSE 
+	BEGIN  --Daily - Run report for yesterday, 1 day only.
+		SET @DTM_BEG = CAST(CONVERT(VARCHAR(10),@DATE_BEG,101) AS DATETIME) --@DATE_BEG already starting at yesterday's date.
+		SET @DTM_END = CAST(CONVERT(VARCHAR(10),@DATE_END,101) AS DATETIME) -- + 1 --done below.
+	END
+
+SET @DTM_END = @DTM_END + 1  --EVERYTHING ABOVE, @DTM_END IS FOR EXACT DATE RANGE NEEDED. ONE IS ADDED SO WHERE CLAUSE " < @DTM_END" WORKS.
+
+--	SELECT @DTM_BEG, @DTM_END
+--	SELECT * FROM WSOL_TB_IMPORTS_EGENCIA_INVOICING ORDER BY SEQNO
+--=========================================================================
+--CREATE TMP TABLE:
+--=========================================================================
+IF OBJECT_ID('TEMPDB..#IMPORTS_EGENCIA_INVOICING_AGGREGATE_CPROD') IS NOT NULL BEGIN
+   DROP TABLE #IMPORTS_EGENCIA_INVOICING_AGGREGATE_CPROD
+END
+CREATE TABLE #IMPORTS_EGENCIA_INVOICING_AGGREGATE_CPROD
+(LOGIN_ID				VARCHAR(200)
+,ID_EXT					VARCHAR(3)
+,CPROD_MINUTES			DECIMAL(10,2)
+,INVOICE_ID				VARCHAR(50)
+)
+
+--========================================================================================================
+--INSERT RECORDS INTO TMP TABLE:
+--========================================================================================================
+    INSERT INTO #IMPORTS_EGENCIA_INVOICING_AGGREGATE_CPROD
+	SELECT 
+	 UA.LOGIN_ID					AS LOGIN_ID
+	,UA.ID_EXT						AS ID_EXT
+	,ISNULL(UA.CPROD_MINUTES,0.00)	AS CPROD_MINUTES
+	,UA.INVOICE_ID					AS INVOICE_ID
+	FROM
+	(	SELECT
+		 C.FF_LOGIN_ID						AS LOGIN_ID
+		,C.ID_EXT							AS ID_EXT
+		,SUM(ISNULL(C.CPROD,0.00)) / 60.0	AS CPROD_MINUTES
+		,NULL								AS INVOICE_ID
+		--SELECT TOP 100 *
+
+		FROM            WSOL_TB_IMPORTS_EGENCIA_INVOICING		C
+
+		INNER JOIN      DATE_TIME								DT  ON DT.DATE_TIME_KEY = C.STD_TENANT_START_DATE_TIME_KEY
+		WHERE DT.CAL_DATE >= @DTM_BEG AND DT.CAL_DATE <  @DTM_END
+
+		GROUP BY
+		 C.FF_LOGIN_ID
+		,C.ID_EXT
+	) UA
+
+UPDATE #IMPORTS_EGENCIA_INVOICING_AGGREGATE_CPROD SET
+ INVOICE_ID = CASE WHEN CPROD_MINUTES < 3240.00 THEN
+					CASE WHEN ID_EXT = 'ERA' THEN 'Egencia RE1'	--Resource
+						 WHEN ID_EXT = 'ESM' THEN 'Egencia SME'	--SME
+						 WHEN ID_EXT = 'ECS' THEN 'Egencia C1'	--C-Select
+						 WHEN ID_EXT = 'EKA' THEN 'Egencia KT1'	--KEY
+						 WHEN ID_EXT = 'ESA' THEN 'Egencia S1'	--SAT
+						 ELSE '' END
+				   WHEN ( CPROD_MINUTES >= 3240.00 AND CPROD_MINUTES <= 4500.00 ) THEN
+					CASE WHEN ID_EXT = 'ERA' THEN 'Egencia RE1'
+						 WHEN ID_EXT = 'ESM' THEN 'Egencia SME'
+						 WHEN ID_EXT = 'ECS' THEN 'Egencia C2'
+						 WHEN ID_EXT = 'EKA' THEN 'Egencia KT2'
+						 WHEN ID_EXT = 'ESA' THEN 'Egencia S2'
+						 ELSE '' END
+				   WHEN CPROD_MINUTES > 4500.00 THEN
+					CASE WHEN ID_EXT = 'ERA' THEN 'Egencia RE1'
+						 WHEN ID_EXT = 'ESM' THEN 'Egencia SME'
+						 WHEN ID_EXT = 'ECS' THEN 'Egencia C3'
+						 WHEN ID_EXT = 'EKA' THEN 'Egencia KT3'
+						 WHEN ID_EXT = 'ESA' THEN 'Egencia S3'
+						 ELSE '' END
+				   ELSE '' END
+
+--SELECT * FROM #IMPORTS_EGENCIA_INVOICING_AGGREGATE_CPROD
+--SELECT * FROM  WSOL_TB_IMPORTS_EGENCIA_INVOICING
+--=============================================
+--UPDATE PERMANENT INVOICE TABLE
+--=============================================
+UPDATE WSOL_TB_IMPORTS_EGENCIA_INVOICING SET
+ INVOICE_ID				= TMP1.INVOICE_ID
+,WS_ROW_UPDATED_TIME	= DBO.GETDATE()
+--  SELECT *
+FROM            #IMPORTS_EGENCIA_INVOICING_AGGREGATE_CPROD	TMP1
+INNER JOIN      WSOL_TB_IMPORTS_EGENCIA_INVOICING			G   ON G.FF_LOGIN_ID	= TMP1.LOGIN_ID
+															   AND G.ID_EXT			= TMP1.ID_EXT
+
+----Where Permanent table key fields match Work table key fields - then we want to update non-key fields!!!:
+WHERE G.FF_LOGIN_ID	= TMP1.LOGIN_ID
+  AND G.ID_EXT		= TMP1.ID_EXT
+  AND ( G.[DATETIME] >= @DTM_BEG AND G.[DATETIME] <  @DTM_END )
+
+--=============================================
+--UPDATE PERMANENT UV INVOICE TABLE
+--=============================================
+UPDATE WSOL_TB_IMPORTS_EGENCIA_UV_ANT_AIA SET
+ INVOICE_ID				= TMP1.INVOICE_ID
+,INVOICE_SYSTEM_ID		= TMP1.INVOICE_ID
+,WS_ROW_UPDATED_TIME	= DBO.GETDATE()
+--  SELECT *
+FROM            #IMPORTS_EGENCIA_INVOICING_AGGREGATE_CPROD	TMP1
+INNER JOIN      WSOL_TB_IMPORTS_EGENCIA_UV_ANT_AIA			U   ON U.INVOICE_MAP_KEY	= TMP1.LOGIN_ID
+															   AND U.ACD_ID_EXTENSION	= TMP1.ID_EXT
+
+----Where Permanent table key fields match Work table key fields - then we want to update non-key fields!!!:
+WHERE U.INVOICE_MAP_KEY		= TMP1.LOGIN_ID
+  AND U.ACD_ID_EXTENSION	= TMP1.ID_EXT
+  AND ( U.CAL_DATE >= @DTM_BEG AND U.CAL_DATE <  @DTM_END )
+  AND U.HOLIDAY <> 'Yes'
+  --AND ISNULL(U.INVOICE_SYSTEM_ID,'') = ''
+
+
+--===============================
+EARLY_EXIT:
+--===============================
+--IMPOSSIBLE:  SELECT 1/0    POSSIBLE:  SELECT 0/1

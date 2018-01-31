@@ -1,0 +1,331 @@
+﻿CREATE PROCEDURE [dbo].[uspIMPORTS_GAR_AIA_XML]
+ @DATE_BEG           DATETIME
+,@DATE_END           DATETIME
+,@TENANT_KEY         VARCHAR(150) --No multiples even though filter below is setup for multiples.
+,@SCHEDULER_GROUP    VARCHAR(150) --Hid. Def=' '
+,@ID_EXT             VARCHAR(300)
+,@RESOURCE_KEY       VARCHAR(10)  --Hid. Def='0'
+,@TIME_INTERVAL      VARCHAR(10)  --Hid. Def='HR'  HR,DY,DR   FOR SUB: MD(Month by Day),MR(Month Range)  15 and 30 not possible !!!!
+,@SHOW_RESOURCE      VARCHAR(1)   --Hid. Def='Y'
+,@DUR_IN             VARCHAR(2)   --Hid. Def='MM' 
+,@RESOURCE_FORMAT    VARCHAR(2)   --Hid. Def='NM' --'NM'=NAME + (employee id),  'ID'=ID
+,@SHOW_HOLIDAY       VARCHAR(1)   --Hid. Def='N'
+,@PSW                VARCHAR(10)  --Hid. Def='NONE'
+,@EXECUTIONER        VARCHAR(3)   --Hid. Def='MAN'-Manual - when users run report - what SRS reports are defaulted to.  MAN means use date range that user specified.  The exception is when a report is defined with PTD/YTD and MTD rows in it.
+                                  --         'SUB'-Subscription - what SRS subscriptions are defaulted to.  SUB means set date range @vars based on @TIME_INTERVAL. (since date range in SRS Subscription can't be set correctly)
+,@RPT_TYPE_GRP       VARCHAR(3)   --Hid. Def='AIA'-Agent Invoice Automation - what Sergey uses for/in Scheduler...
+,@RPT_TYPE           VARCHAR(3)   --Hid. Def='XML'-AIA RPT (DETAIL) (XML FILE/EXPORT),
+AS
+SET NOCOUNT ON
+
+SET @TENANT_KEY = 900705  --GAR --used below for file name !!! in ssis !!
+
+--==================================
+DECLARE
+ @DTM_BEG AS DATETIME
+,@DTM_END AS DATETIME
+IF @DATE_BEG < '01/01/1901' BEGIN     
+    SET @DTM_BEG = CAST(CONVERT(VARCHAR(10),dbo.getdate() - 1,101) AS DATETIME)  
+    SET @DTM_END = CAST(CONVERT(VARCHAR(10),dbo.getdate() - 0,101) AS DATETIME)  
+END
+ELSE BEGIN
+    SET @DTM_BEG = CAST(CONVERT(VARCHAR(10),@DATE_BEG,101) AS DATETIME) 
+    SET @DTM_END = CAST(CONVERT(VARCHAR(10),@DATE_END,101) AS DATETIME) + 1
+END
+
+--IF @EXECUTIONER = 'MAN', DON'T CHANGE DATES -- THE REPORT IS BEING RAN MANUALLY, AND THE DATE RANGE WANTED BY THE USER IS BEING SET MANUALLY.
+
+IF @EXECUTIONER = 'NEW' BEGIN -- NEW BI-MONTHLY PAYMENT CYCLE 1ST AND 16TH OF EACH MONTH
+	IF @TIME_INTERVAL = 'W14' BEGIN
+		IF DAY(dbo.getdate()) = 1 BEGIN
+			IF MONTH(dbo.getdate()) = 1 BEGIN
+				SET @DTM_BEG = CONVERT(DATETIME,CONVERT(VARCHAR(6),'12/16/') + CONVERT(VARCHAR(4),YEAR(dbo.getdate())-1))
+			END
+			ELSE BEGIN
+				SET @DTM_BEG = CONVERT(DATETIME,CONVERT(VARCHAR(2),MONTH(dbo.getdate() - 1)) + CONVERT(VARCHAR(4),'/16/') + CONVERT(VARCHAR(4),YEAR(dbo.getdate())))
+			END
+		END		
+		ELSE IF DAY(dbo.getdate()) = 16 BEGIN
+			SET @DTM_BEG = CONVERT(DATETIME,CONVERT(VARCHAR(2),MONTH(dbo.getdate())) + CONVERT(VARCHAR(4),'/01/') + CONVERT(VARCHAR(4),YEAR(dbo.getdate())))
+		END
+		ELSE IF DAY(dbo.getdate()) > 1 AND DAY(dbo.getdate()) < 16 BEGIN
+			SET @DTM_BEG = CONVERT(DATETIME,CONVERT(VARCHAR(2),MONTH(dbo.getdate())) + CONVERT(VARCHAR(4),'/01/') + CONVERT(VARCHAR(4),YEAR(dbo.getdate())))
+		END
+		ELSE BEGIN
+			SET @DTM_BEG = CONVERT(DATETIME,CONVERT(VARCHAR(2),MONTH(dbo.getdate())) + CONVERT(VARCHAR(4),'/16/') + CONVERT(VARCHAR(4),YEAR(dbo.getdate())))
+		END
+	END
+END
+
+--=========================================================================================
+--FORMAT 'MULTIPLES' "IN THAT" VALUES:  (Referring to CHARINDEX(search for this, in that))
+--=========================================================================================
+SET @ID_EXT          = ',' + LTRIM(RTRIM(@ID_EXT)) + ','
+SET @SCHEDULER_GROUP = ',' + LTRIM(RTRIM(@SCHEDULER_GROUP)) + ','
+ 
+
+--==================================
+--SET AMOUNT TO DIVIDE BY:
+--==================================
+DECLARE @DS DECIMAL(10,2)  --INT  --SECONDS TO DIVIDE BY.
+IF @DUR_IN = 'SS' BEGIN
+    SET @DS = 1.0			--DIVIDE SECONDS BY 1 TO GET SECONDS.
+END
+IF @DUR_IN = 'MM' BEGIN
+	SET @DS = 60.0			--DIVIDE SECONDS BY 60 TO GET MINUTES.
+END
+IF @DUR_IN = 'HH' BEGIN
+	SET @DS = 3600.0		--DIVIDE SECONDS BY 3600 TO GET HOURS.
+END
+
+--==================================
+IF @RPT_TYPE_GRP = 'AIA' BEGIN
+
+	--POPULATES XML REPORT.  SRS SUBSCRIPTION EXPORTS TO XML.  SSIS RENAMES AND MOVES XML FILE TO FTP.  SERGEY PICKS UP FILE?
+	--  SERGEY IS SUPPOSEDLY DIRECTLY CONNECTED WITH YZ_TB_AGENT_INVOICE_AUTOMATION TABLE IN INFOMART ALSO.
+	--    SO WHY THE XML FILE NEEDS TO BE CREATED ALSO, IS WONDER?
+
+	IF @RPT_TYPE = 'XML' BEGIN  --AIA REPORT  --EXACTLY WHAT IS IN XML FILE AND/OR AIA TABLE.
+		--==================================		--CREATE TMP TABLE:
+		IF OBJECT_ID('TEMPDB..#IMPORTS_GAR_AIA_XML') IS NOT NULL BEGIN
+		   DROP TABLE #IMPORTS_GAR_AIA_XML
+		END
+		CREATE TABLE #IMPORTS_GAR_AIA_XML
+		([PLATFORM]                   VARCHAR(50)
+		,[STATUS]                     VARCHAR(50) 
+		,INVOICE_MAP_KEY              VARCHAR(50) 
+		,FIELD_NAME                   VARCHAR(50) 
+		,SCHEDULER_PROJECT_ID         VARCHAR(50) 
+		,SCHEDULER_ACL_NAME           VARCHAR(50) 
+		,ACD_ID_EXTENSION             VARCHAR(50) 
+		,OFFICIAL_WSOL_CLIENT_ID      VARCHAR(50) 
+		,OFFICIAL_WSOL_CLIENT_NAME    VARCHAR(50) 
+		,OFFICIAL_ACD_CLIENT_ID       VARCHAR(50) 
+		,OFFICIAL_ACD_CLIENT_NAME     VARCHAR(50) 
+		,PRIMARY_PROJECT_MANAGER_ID   VARCHAR(500) 
+		,DIRECTOR_OF_PROJECT_MANAGEMENT_ID VARCHAR(500) 
+		,AGENT_TECHNOLOGY_MANAGER_ID  VARCHAR(500) 
+		,CONTRACTOR_SUPPORT_PATHWAY   VARCHAR(500) 
+		,INVOICE_SYSTEM_ID            VARCHAR(50) 
+		,HOLIDAY_INVOICE_ID           VARCHAR(50) 
+		,HOLIDAY                      VARCHAR(50) 
+		,FILE_FORMAT_OF_PUSH          VARCHAR(50) 
+		,AGENT_PREPARATION_INVOICE_ID VARCHAR(50) 
+		,NEW_ACL                      VARCHAR(50) 
+		,CURRENT_CATS                 VARCHAR(50) 
+		,CATS_ID                      VARCHAR(50) 
+		,PATS_ID                      VARCHAR(50) 
+		,SMART_ELIGIBLE               VARCHAR(50) 
+		,SMART_TIER_1                 VARCHAR(50) 
+		,SMART_TIER_2                 VARCHAR(50) 
+		,SMART_TIER_3                 VARCHAR(50) 
+		,INTERVAL                     VARCHAR(50) 
+		,DATE                         VARCHAR(50) 
+		,HOD_INTERVAL                 VARCHAR(50) 
+		,AU_DK_LOGGED_IN_DURATION     DECIMAL(10,2)  --INT 
+		,AU_DK_AVAILABLE_DURATION     DECIMAL(10,2)  --INT 
+		,AU_DK_TALK_DURATION          DECIMAL(10,2)  --INT 
+		,AU_DK_IB_TALK_DURATION       DECIMAL(10,2)  --INT 
+		,AU_DK_OB_TALK_DURATION       DECIMAL(10,2)  --INT 
+		,AU_DK_CONVENTIONAL_ACW       DECIMAL(10,2)  --INT 
+		,AU_DK_NR_DURATION            DECIMAL(10,2)  --INT 
+		,AU_DK_PSEUDO_PRODUCTIVE_DURATION   DECIMAL(10,2)  --INT 
+		,AU_DK_ADJUSTED_NR_DURATION         DECIMAL(10,2)  --INT 
+		,AU_DK_TOTAL_PRODUCTIVE_DURATION    DECIMAL(10,2)  --INT 
+		,AU_DK_WPSEUDO_PRODUCTIVE_DURATIONS DECIMAL(10,2)  --INT 
+		,AU_DK_XFER_COUNT             INT 
+		,AU_DK_HOLD_COUNT             INT 
+		,AU_DK_CONFERENCE_COUNT       INT 
+		,AU_DK_CONSULT_COUNT          INT 
+		,AU_DK_PUP_COUNT              INT 
+		,AU_DK_OFFERED_COUNT          INT 
+		,AU_DK_HANDLED_COUNT          INT 
+		,AU_DK_IB_HANDLE_COUNT        INT 
+		,AU_DK_OB_HANDLE_COUNT        INT 
+		,AU_DK_RONA_COUNT             INT 
+		,AU_DK_AWR_COUNT              INT 
+		,MINIMUM_GUARANTEE            DECIMAL(10,2) 
+		,AUTHORIZED_TO_INVOICE        DECIMAL(10,2) 
+		,WEEK_ENDING_DATE             VARCHAR(50) 
+		,PAY_CYCLE_CLOSURE_DATE       VARCHAR(50) 
+		,CAL_DATE                     DATETIME
+		,TENANT_KEY                   INT 
+		,INVOICE_ID                   VARCHAR(50) 
+		,CST_ROW_CREATED_TIME         DATETIME
+		)
+		--==================================		
+		-- INSERT INTO TEMP TABLE
+		--==================================
+		INSERT INTO #IMPORTS_GAR_AIA_XML
+		SELECT --AIA.*
+		 MAX(AIA.[PLATFORM])
+		,MAX(AIA.[STATUS])
+		,AIA.INVOICE_MAP_KEY              
+		,MAX(AIA.FIELD_NAME)
+		,MAX(AIA.SCHEDULER_PROJECT_ID)
+		,MAX(AIA.SCHEDULER_ACL_NAME)
+		,AIA.ACD_ID_EXTENSION             
+		,MAX(AIA.OFFICIAL_WSOL_CLIENT_ID)
+		,MAX(AIA.OFFICIAL_WSOL_CLIENT_NAME)    
+		,MAX(AIA.OFFICIAL_ACD_CLIENT_ID)
+		,AIA.OFFICIAL_ACD_CLIENT_NAME
+		,MAX(AIA.PRIMARY_PROJECT_MANAGER_ID)
+		,MAX(AIA.DIRECTOR_OF_PROJECT_MANAGEMENT_ID)
+		,MAX(AIA.AGENT_TECHNOLOGY_MANAGER_ID)
+		,MAX(AIA.CONTRACTOR_SUPPORT_PATHWAY)
+		,MAX(AIA.INVOICE_SYSTEM_ID)
+		,MAX(AIA.HOLIDAY_INVOICE_ID)
+		,MAX(AIA.HOLIDAY)
+		,MAX(AIA.FILE_FORMAT_OF_PUSH)
+		,MAX(AIA.AGENT_PREPARATION_INVOICE_ID)
+		,MAX(AIA.NEW_ACL)
+		,MAX(AIA.CURRENT_CATS)
+		,MAX(AIA.CATS_ID)
+		,MAX(AIA.PATS_ID)
+		,MAX(AIA.SMART_ELIGIBLE)
+		,MAX(AIA.SMART_TIER_1)
+		,MAX(AIA.SMART_TIER_2)
+		,MAX(AIA.SMART_TIER_3)
+		,MAX(AIA.INTERVAL)
+		,AIA.DATE                         
+		,AIA.HOD_INTERVAL                 
+		,SUM(CAST( ( 1.0 * (AIA.AU_DK_LOGGED_IN_DURATION) ) / @DS AS DECIMAL(10,2))) --AS AU_DK_LOGGED_IN_DURATION
+		,SUM(CAST( ( 1.0 * (AIA.AU_DK_AVAILABLE_DURATION) ) / @DS AS DECIMAL(10,2))) --AS AU_DK_AVAILABLE_DURATION
+		,SUM(CAST( ( 1.0 * (AIA.AU_DK_TALK_DURATION) )      / @DS AS DECIMAL(10,2))) --AS AU_DK_TALK_DURATION
+		,SUM(CAST( ( 1.0 * (AIA.AU_DK_IB_TALK_DURATION) )   / @DS AS DECIMAL(10,2))) --AS AU_DK_IB_TALK_DURATION
+		,SUM(CAST( ( 1.0 * (AIA.AU_DK_OB_TALK_DURATION) )   / @DS AS DECIMAL(10,2))) --AS AU_DK_OB_TALK_DURATION
+		,SUM(CAST( ( 1.0 * (AIA.AU_DK_CONVENTIONAL_ACW) )   / @DS AS DECIMAL(10,2))) --AS AU_DK_CONVENTIONAL_ACW
+		,SUM(CAST( ( 1.0 * (AIA.AU_DK_NR_DURATION) )        / @DS AS DECIMAL(10,2))) --AS AU_DK_NR_DURATION
+		,SUM(CAST( ( 1.0 * (AIA.AU_DK_PSEUDO_PRODUCTIVE_DURATION) )   / @DS AS DECIMAL(10,2))) --AS AU_DK_PSEUDO_PRODUCTIVE_DURATION
+		,SUM(CAST( ( 1.0 * (AIA.AU_DK_ADJUSTED_NR_DURATION) )         / @DS AS DECIMAL(10,2))) --AS AU_DK_ADJUSTED_NR_DURATION
+		,SUM(CAST( ( 1.0 * (AIA.AU_DK_TOTAL_PRODUCTIVE_DURATION) )    / @DS AS DECIMAL(10,2))) --AS AU_DK_TOTAL_PRODUCTIVE_DURATION
+		,SUM(CAST( ( 1.0 * (AIA.AU_DK_WPSEUDO_PRODUCTIVE_DURATIONS) ) / @DS AS DECIMAL(10,2))) --AS AU_DK_WPSEUDO_PRODUCTIVE_DURATIONS
+		,SUM((AIA.AU_DK_XFER_COUNT))         --AS AU_DK_XFER_COUNT
+		,SUM((AIA.AU_DK_HOLD_COUNT))         --AS AU_DK_HOLD_COUNT
+		,SUM((AIA.AU_DK_CONFERENCE_COUNT))   --AS AU_DK_CONFERENCE_COUNT
+		,SUM((AIA.AU_DK_CONSULT_COUNT))      --AS AU_DK_CONSULT_COUNT
+		,SUM((AIA.AU_DK_PUP_COUNT))          --AS AU_DK_PUP_COUNT
+		,SUM((AIA.AU_DK_OFFERED_COUNT))      --AS AU_DK_OFFERED_COUNT
+		,SUM((AIA.AU_DK_HANDLED_COUNT))      --AS AU_DK_HANDLED_COUNT
+		,SUM((AIA.AU_DK_IB_HANDLE_COUNT))    --AS AU_DK_IB_HANDLE_COUNT
+		,SUM((AIA.AU_DK_OB_HANDLE_COUNT))    --AS AU_DK_OB_HANDLE_COUNT
+		,SUM((AIA.AU_DK_RONA_COUNT))         --AS AU_DK_RONA_COUNT
+		,SUM((AIA.AU_DK_AWR_COUNT))          --AS AU_DK_AWR_COUNT
+		,SUM(CAST( ( 1.0 * (AIA.MINIMUM_GUARANTEE) )     / @DS AS DECIMAL(10,2))) --AS MINIMUM_GUARANTEE
+		,SUM(CAST( ( 1.0 * (AIA.AUTHORIZED_TO_INVOICE) ) / @DS AS DECIMAL(10,2))) --AS AUTHORIZED_TO_INVOICE
+		,MAX(AIA.WEEK_ENDING_DATE)
+		,MAX(AIA.PAY_CYCLE_CLOSURE_DATE)
+		,MAX(AIA.CAL_DATE)
+		,MAX(AIA.TENANT_KEY)
+		,AIA.INVOICE_ID                   
+		,MAX(AIA.WS_ROW_CREATED_TIME)
+
+		--  SELECT *
+		FROM            WSOL_TB_IMPORTS_GAR_UV_ANT_AIA         AIA
+		INNER JOIN      DATE_TIME                            DT    ON DT.DATE_TIME_KEY      = AIA.STD_TENANT_START_DATE_TIME_KEY
+		
+		WHERE ( DT.CAL_DATE >= @DTM_BEG AND DT.CAL_DATE <  @DTM_END )
+		  AND AIA.STATUS = 'Active'
+		  AND ( (ISNULL(AIA.READY_FOR_XML,'') = 'Y')  --<----Maintain this field, and the AIA will populate the XML correctly every time!!!!!!!!!
+				OR (@ID_EXT = 'Y') )  --<----In Test Mode (ignore what ready_for_xml is set to).
+		  AND ( ISNULL(AIA.INVOICE_ID,'') <> '' )  --INSURANCE, IN CASE BLANK ID EXTENSION SLIPS THROUGH
+
+		GROUP BY
+		 AIA.OFFICIAL_ACD_CLIENT_NAME
+		,AIA.INVOICE_MAP_KEY
+		,AIA.ACD_ID_EXTENSION
+		,AIA.DATE
+		,AIA.HOD_INTERVAL
+		,AIA.INVOICE_ID
+
+		ORDER BY 
+		 AIA.OFFICIAL_ACD_CLIENT_NAME
+		--,AIA.SCHEDULER_ACL_NAME
+		,AIA.INVOICE_ID
+		,AIA.ACD_ID_EXTENSION     
+		,AIA.INVOICE_MAP_KEY
+		,AIA.DATE
+		,AIA.HOD_INTERVAL
+
+
+--===============================================
+-- UPDATE MINIMUM GUARANTEE
+--===============================================
+
+UPDATE #IMPORTS_GAR_AIA_XML SET
+ MINIMUM_GUARANTEE = CASE WHEN ISNULL(ACD_ID_EXTENSION,'') <> '' THEN 
+							(40.00 / 60.00) * AU_DK_TOTAL_PRODUCTIVE_DURATION
+						  ELSE 0.00 END
+
+--===============================================
+-- UPDATE AUTHORIZED TO INVOICE
+--===============================================
+UPDATE #IMPORTS_GAR_AIA_XML SET
+ AUTHORIZED_TO_INVOICE = CASE WHEN ISNULL(ACD_ID_EXTENSION,'') <> '' THEN 
+							CASE WHEN MINIMUM_GUARANTEE > (AU_DK_TALK_DURATION) THEN MINIMUM_GUARANTEE
+								 ELSE (AU_DK_TALK_DURATION) END      --TOTAL_TALK = INBOUND_TIME + OUTBOUND_TIME
+							  ELSE 0.00 END
+
+
+
+		--==================================!!!--INSERT RECORD FOR REPORT SO SSIS KNOWS DATE OF DATA IN DATASET:
+		--Have to include 'D??' or 'W??' because SRS Subscriptions are being ran at about same time in one sql job step.
+		--  If one subscription takes longer than the other, the wrong date will get used/pulled from the YZ_TB_FILENAMES_FOR_SSIS in the ssis. and so on.
+		IF CHARINDEX('D',@TIME_INTERVAL) > 0 BEGIN
+			INSERT INTO YZ_TB_FILENAMES_FOR_SSIS
+			(SQL_JOB_NAME
+,FILENM
+,CST_ROW_CREATED_TIME)
+			SELECT  --FOR THE .XML FILES FOR EACH DATE:
+			 'iNetAIA_' + LTRIM(RTRIM(@TIME_INTERVAL))  --'iNetAIA_D09' for internal wsinet tenants 9 days from current date.  --SQL_JOB_NAME
+			,REPLACE(CONVERT(VARCHAR(10),@DTM_END - 1,1),'/','')  --INCLUDE FOR INTRADAY REPORTS:  + '_' + REPLACE(CONVERT(VARCHAR(10),dbo.getdate(),108),':','') --+ '.xls'  --FILENM
+			,dbo.getdate()  --CST_ROW_CREATED_TIME
+		END
+		ELSE BEGIN  --'W' MEANING NEED TO PASS/POPULATE WITH DATE RANGE, LIKE 'MMDDYY_MMDDYY'. -- FOR GAR AND NW.
+			INSERT INTO YZ_TB_FILENAMES_FOR_SSIS
+				(SQL_JOB_NAME
+,FILENM
+,CST_ROW_CREATED_TIME)
+
+			SELECT  --FOR GETAROOM AND NINE_WEST:    --old:-- 'AGENT_INVOICE_AIA_XML'  --SQL_JOB_NAME 
+			 'iNetAIA_' + LTRIM(RTRIM(@TIME_INTERVAL)) + '_' + REPLACE(LTRIM(RTRIM(CAST(@TENANT_KEY AS VARCHAR(10)))),',','')  --'iNetAIA_W14_900595' for GAR  --SQL_JOB_NAME
+			,REPLACE(CONVERT(VARCHAR(10),@DTM_BEG,1),'/','') + '_' + REPLACE(CONVERT(VARCHAR(10),@DTM_END - 1,1),'/','')  --INCLUDE FOR INTRADAY REPORTS:  + '_' + REPLACE(CONVERT(VARCHAR(10),dbo.getdate(),108),':','') --+ '.xls'  --FILENM
+			,dbo.getdate()  --CST_ROW_CREATED_TIME
+		END
+		--  SELECT * FROM YZ_TB_FILENAMES_FOR_SSIS ORDER BY CST_ROW_CREATED_TIME DESC
+
+		--==================================!!!--RETURN DATASET TO REPORT:
+		SELECT *
+		FROM #IMPORTS_GAR_AIA_XML
+		ORDER BY 
+		 OFFICIAL_ACD_CLIENT_NAME
+		--,SCHEDULER_ACL_NAME
+		,INVOICE_ID
+
+		,ACD_ID_EXTENSION     
+		,INVOICE_MAP_KEY
+		,DATE
+		,HOD_INTERVAL
+	END  --AIA_XML
+
+
+
+END  --IF @RPT_TYPE_GRP = 'AIA'
+
+
+--===============================
+EARLY_EXIT:
+--===============================
+--IMPOSSIBLE:  SELECT 1/0    POSSIBLE:  SELECT 0/1
+--==================================
+
+--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--THIS (adding first, then getting minutes...) GIVES MORE AUT2, BUT NOT HOW Paul H. wanted.  Assuming 'Method' has precedence over highest AUT2.
+--SELECT  ((852 + 811 + 555 + 669) / 60) * .63                                                   -- = 30.24
+--CONVERT SECONDS TO MINUTES FOR EACH 15 MINUTE INTERVAL, THEN TOTAL FOR MINUTES IN AN HOUR, THEN TIMES RATE:
+--SELECT  ((852 / 60) + (811 / 60) + (555 / 60) + (669 / 60)) * .63                              -- = 29.61
+--!!! THIS IS HOW INVOICING MUST BE DONE PER PAUL H., 6/8/11, 10:45AM !!!--:
+--CONVERT SECONDS TO MINUTES, DATA STILL IN 15 MINUTE INTERVALS, THEN TIMES RATE, THEN TOTAL/GROUP BASED ON HOW THEY WANT DATA DISPLAYED:
+--SELECT (((852 / 60) * .63) + ((811 / 60)  * .63) + ((555 / 60)  * .63) + ((669 / 60)  * .63))  -- = 29.61
+--THIS ENSURES THAT DATA/RESULTS WILL MATCH WITH EVERY INVOICE REPORT, NO MATTER WHAT INTERVAL(S) DATA IS DISPLAYED IN.
+--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

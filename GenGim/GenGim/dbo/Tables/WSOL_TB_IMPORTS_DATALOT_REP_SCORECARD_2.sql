@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[WSOL_TB_IMPORTS_DATALOT_REP_SCORECARD] (
+    [FF_ID]                          VARCHAR (50)  NULL,
+    [FF_AGENT_ID]                    VARCHAR (50)  NULL,
+    [FF_AGENT_FIRST_NAME]            VARCHAR (50)  NULL,
+    [FF_AGENT_LAST_NAME]             VARCHAR (50)  NULL,
+    [FF_AGENT_LOCATION]              VARCHAR (50)  NULL,
+    [FF_TEAM]                        VARCHAR (50)  NULL,
+    [FF_CALLS]                       VARCHAR (50)  NULL,
+    [FF_EXPECTED_3_MIN_XFERS]        VARCHAR (50)  NULL,
+    [FF_3_MIN_XFERS]                 VARCHAR (50)  NULL,
+    [FF_EXCESS_3MIN_XFER]            VARCHAR (50)  NULL,
+    [FF_INBOUND_EXCESS_3MIN_XFER]    VARCHAR (50)  NULL,
+    [FF_OUTBOUND_EXCESS_3MIN_XFER]   VARCHAR (50)  NULL,
+    [DATA_DATE]                      DATETIME      NULL,
+    [SEQNO_ADDED_TIME]               DATETIME      NOT NULL,
+    [SEQNO]                          INT           NOT NULL,
+    [FTP_FILE_NAME]                  VARCHAR (100) NOT NULL,
+    [DATETIME]                       DATETIME      NULL,
+    [HOUR_INTERVAL]                  VARCHAR (50)  NULL,
+    [STD_TENANT_START_DATE_TIME_KEY] INT           NULL,
+    [TENANT_KEY]                     INT           NULL,
+    [WS_ROW_CREATED_TIME]            DATETIME      NULL,
+    [WS_ROW_UPDATED_TIME]            DATETIME      NULL,
+    [ID]                             INT           IDENTITY (1, 1) NOT NULL,
+    CONSTRAINT [PK_WSOL_TB_IMPORTS_DATALOT_REP_SCORECARD] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+

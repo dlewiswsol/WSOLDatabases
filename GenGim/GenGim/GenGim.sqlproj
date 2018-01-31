@@ -1,0 +1,510 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>GenGim</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{6458e7cf-8c5c-4773-8139-148cdec5de14}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>GenGim</RootNamespace>
+    <AssemblyName>GenGim</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+    <GenerateCreateScript>True</GenerateCreateScript>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Builds" />
+    <Folder Include="Builds\TestData" />
+    <Folder Include="Scripts" />
+    <Folder Include="Scripts\Post-Deployment" />
+    <Folder Include="Scripts\Pre-Deployment" />
+    <Folder Include="Scripts\Post-Deployment\LookupData" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_INVOICING_5.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_STUBHUB_INVOICING_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SABRE_INVOICING_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GAR_INVOICING_BAD_2_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_STUBHUB_INVOICING_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SABRE_INVOICING_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_INVOICING_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_STUBHUB_CHAT_INVOICING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_INVOICING_3_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_STUBHUB_INVOICING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SABRE_INVOICING_1_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_STUBHUB_INVOICING_BAD_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SABRE_INVOICING_BAD_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_INVOICING_0_Audit_2.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_STUBHUB_SD_AIA_STATIC_DEFAULTS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SABRE_SD_AIA_STATIC_DEFAULTS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_BACKGROUNDS_ONLINE_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_STUBHUB_SD_INVOICE_GROUPS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SABRE_SD_INVOICE_GROUPS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_STUBHUB_CHAT_INVOICING_2.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_STUBHUB_SD_INVOICE_HOLIDAYS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SABRE_SD_INVOICE_HOLIDAYS_1.sql" />
+    <Build Include="dbo\Tables\DATE_TIME_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_ASPECT_EXCEPTIONS_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_STUBHUB_CHAT_INVOICING_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_STUBHUB_SD_INVOICE_HOLIDAYS_ADDL_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SABRE_SD_INVOICE_HOLIDAYS_ADDL_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_FILENAMES_FOR_SSIS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_INVOICING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_ASPECT_EXCEPTIONS_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_STUBHUB_UV_ANT_AIA_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SABRE_UV_ANT_AIA_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORT_ERRORS_FOUND_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_INVOICING_BAD_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_ASPECT_EXCEPTIONS_2.sql" />
+    <Build Include="dbo\Tables\YZ_TB_SQL_JOBS_ON_FAILURE_ERRORS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SALESFORCE_INFORMATICA_WFM_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_APFM_INVOICING_7.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_AIA_AGENT_MAPPING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_HIREIQ_RESULT_ARCHIVED_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_HIREIQ_RESULT_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SALESFORCE_INFORMATICA_WFM_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_AIA_AGENT_MAPPING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_APFM_INVOICING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_HIREIQ_CATS_IMPORT_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SALESFORCE_INFORMATICA_WFM_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_AIA_AGENT_MAPPING_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_APFM_INVOICING_2_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_CMS_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_ICIMS_APPLICANT_DATA_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_AIA_AGENT_MAPPING_ERRORS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SALESFORCE_INFORMATICA_WFM_BAD_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_APFM_INVOICING_3_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_ICIMS_APPLICANT_CATS_DATA_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_AIA_AGENT_MAPPING_ERRORS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_AIA_AGENT_MAPPING_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_CMS_BAD_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_VYNE_PATS_ACCESS_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_APFM_INVOICING_4_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_STUBHUB_RAW_DATA_II_1_1.sql" />
+    <Build Include="dbo\Tables\HIREIQ_CATS_IMPORT_1.sql" />
+    <Build Include="dbo\Tables\HireIQResult_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_VYNE_PATS_ACCESS_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_APFM_INVOICING_5_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_IC_INVOICING_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\HireIQResultArchived_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_SD_INVOICE_HOLIDAYS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_SD_INVOICE_GROUPS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_STUBHUB_RAW_DATA_II_0_AUDIT_1.sql" />
+    <Build Include="dbo\Tables\icims_import_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_VYNE_PATS_ACCESS_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_APFM_INVOICING_6_1.sql" />
+    <Build Include="dbo\Tables\icims_person_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_SD_INVOICE_HOLIDAYS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_STUBHUB_RAW_DATA_II_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_VYNE_PATS_ACCESS_BAD_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_SD_INVOICE_HOLIDAYS_ADDL_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_APFM_INVOICING_BAD_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WORK_HOURS_ALL_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_APFM_UV_ANT_AIA_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_SD_INVOICE_HOLIDAYS_ADDL_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_SD_INVOICE_GROUPS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_AIA_AGENT_MAPPING_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_DAILY_SCHEDULE_3.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_SD_AIA_STATIC_DEFAULTS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SABRE_SYNXIS_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_INVOICING_2_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_AIA_AGENT_MAPPING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_DAILY_SCHEDULE_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_INVOICING_3.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SABRE_SYNXIS_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_APFM_INVOICING_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_AIA_AGENT_MAPPING_ERRORS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_DAILY_SCHEDULE_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_SD_AIA_STATIC_DEFAULTS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_DAILY_SCHEDULE_2_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_INVOICING_1_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SABRE_SYNXIS_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_UV_ANT_AIA_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_DAILY_SCHEDULE_BAD_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_INVOICING_BAD_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GA_AIA_AGENT_MAPPING_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_SA_WA_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GA_AIA_AGENT_MAPPING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_INVOICING_5.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GA_AIA_AGENT_MAPPING_ERRORS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_UV_ANT_AIA_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_INCONTACT_OB_INVOICING_3.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GA_INVOICING_5.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_INCONTACT_OB_INVOICING_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GA_INVOICING_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_QA_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_INCONTACT_OB_INVOICING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GA_INVOICING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_STUBHUB_NPS_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_QA_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_INCONTACT_OB_INVOICING_2_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GA_INVOICING_2_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_STUBHUB_NPS_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_INCONTACT_OB_INVOICING_BAD_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_QA_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GA_INVOICING_3_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_IC_OB_INVOICING_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_STUBHUB_NPS_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_SD_AIA_STATIC_DEFAULTS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GA_INVOICING_4_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_IC_OB_INVOICING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_SD_INVOICE_GROUPS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GA_INVOICING_BAD_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_IC_OB_INVOICING_2_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_SD_INVOICE_HOLIDAYS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GA_SD_AIA_STATIC_DEFAULTS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_INCONTACT_INVOICING_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_IC_OB_INVOICING_BAD_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_SD_INVOICE_HOLIDAYS_ADDL_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GA_SD_INVOICE_GROUPS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_INCONTACT_INVOICING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_UV_ANT_AIA_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GA_SD_INVOICE_HOLIDAYS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_IC_OB_INVOICING_3.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_INCONTACT_INVOICING_BAD_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_SQL_JOB_ERRORS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GA_SD_INVOICE_HOLIDAYS_ADDL_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_ERRORS_FOUND_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GA_UV_ANT_AIA_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_INCONTACT_INVOICING_2_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_FILENAMES_FOR_SSIS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_INCONTACT_INVOICING_3.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_STUBHUB_CHAT_PERFORMANCE_1_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_APFM_AIA_AGENT_MAPPING_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_DATALOT_AGG_PERFORMANCE_1_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_APFM_AIA_AGENT_MAPPING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_STUBHUB_CHAT_PERFORMANCE_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_APFM_AIA_AGENT_MAPPING_ERRORS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_DATALOT_AGG_PERFORMANCE_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_STUBHUB_CHAT_PERFORMANCE_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_INVOICING_0_Audit_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_DATALOT_AGG_PERFORMANCE_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_SD_INVOICE_GROUPS_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_APFM_FIVE9_INVOICING_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_SD_INVOICE_HOLIDAYS_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_APFM_FIVE9_INVOICING_BAD_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GAR_INVOICING_OUTBOUND_3.sql" />
+    <Build Include="dbo\Tables\WSOL_CATSID_new_SalesForce_AGENTID_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_INVOICING_2_1.sql" />
+    <Build Include="dbo\Tables\DATE_TIME_backup_2018data_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_APFM_SD_AIA_STATIC_DEFAULTS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_SD_INVOICE_HOLIDAYS_ADDL_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GAR_INVOICING_OUTBOUND_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_IC_INVOICING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_INVOICING_BAD_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_INVOICING_1_1_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_APFM_SD_INVOICE_GROUPS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_SD_AIA_STATIC_DEFAULTS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GAR_INVOICING_OUTBOUND_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_IC_INVOICING_BAD_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_STUBHUB_QA_2.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_APFM_SD_INVOICE_HOLIDAYS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_CMS_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GAR_INVOICING_OUTBOUND_2_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_IC_INVOICING_2_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_STUBHUB_QA_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_INVOICING_3_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_APFM_SD_INVOICE_HOLIDAYS_ADDL_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GAR_INVOICING_OUTBOUND_BAD_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_IC_INVOICING_3.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_EMAIL_RESOLVED_WEEKLY_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_INVOICING_1_ACW_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_APFM_UV_ANT_AIA_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GAR_SD_AIA_STATIC_DEFAULTS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_STUBHUB_QA_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_INVOICING_2_ACW_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_DATALOT_AIA_AGENT_MAPPING_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GAR_SD_INVOICE_GROUPS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_EGENCIA_CMS_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_INVOICING_3_ACW_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_DATALOT_AIA_AGENT_MAPPING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GAR_SD_INVOICE_HOLIDAYS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_DATALOT_REP_SCORECARD_1_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_DATALOT_AIA_AGENT_MAPPING_ERRORS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GAR_SD_INVOICE_HOLIDAYS_ADDL_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_DATALOT_REP_SCORECARD_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_EMAIL_RESOLVED_WEEKLY_1_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_DATALOT_INVOICING_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GAR_UV_ANT_AIA_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_DATALOT_REP_SCORECARD_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_EMAIL_RESOLVED_WEEKLY_BAD_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_DATALOT_INVOICING_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_HUMACH_INVOICING_3.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_INVOICING_4_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_DATALOT_INVOICING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_HUMACH_INVOICING_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_MONAT_INVOICING_NEW_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_INVOICING_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_DATALOT_INVOICING_BAD_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_HUMACH_INVOICING_1_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_DATALOT_INVOICING_XML_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_HUMACH_INVOICING_2_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_INVOICING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_WV_EMAIL_RESOLVED_WEEKLY_2.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_DATALOT_INVOICING_XML_XFER_BONUS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_HUMACH_INVOICING_BAD_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_INVOICING_BAD_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_DATALOT_SD_AIA_STATIC_DEFAULTS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_HUMACH_SD_AIA_STATIC_DEFAULTS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_INVOICING_1_PC_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_DATALOT_SD_INVOICE_GROUPS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_HUMACH_SD_INVOICE_GROUPS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GAR_INVOICING_0_Audit_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_INVOICING_1_CC_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_DATALOT_SD_INVOICE_HOLIDAYS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_HUMACH_SD_INVOICE_HOLIDAYS_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_DATALOT_SD_INVOICE_HOLIDAYS_ADDL_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_HUMACH_SD_INVOICE_HOLIDAYS_ADDL_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_UV_ANT_AIA_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_INVOICING_1_CC2_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GAR_INVOICING_1_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_DATALOT_UV_ANT_AIA_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_HUMACH_UV_ANT_AIA_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_INVOICING_1_CC3_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GAR_INVOICING_2_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_STUBHUB_AIA_AGENT_MAPPING_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SABRE_AIA_AGENT_MAPPING_2.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_INVOICING_2_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GAR_INVOICING_BAD_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_STUBHUB_AIA_AGENT_MAPPING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SABRE_AIA_AGENT_MAPPING_1_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_INVOICING_4_1.sql" />
+    <Build Include="dbo\Tables\YZ_TB_IMPORTS_STUBHUB_AIA_AGENT_MAPPING_ERRORS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_SABRE_AIA_AGENT_MAPPING_ERRORS_1.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_GAR_INVOICING_3.sql" />
+    <Build Include="dbo\Tables\BackgroundsOnline_1.sql" />
+    <Build Include="dbo\Views\WSOL_VW_HIREIQ_DATA_1.sql" />
+    <Build Include="dbo\Views\WSOL_VW_IMPORTS_SABRE_UV_ANT_AIA_1.sql" />
+    <Build Include="dbo\Views\YZ_VW_AGENT_INVOICE_AUTOMATION_1.sql" />
+    <Build Include="dbo\Views\WSOL_VW_CATS_IDS_1.sql" />
+    <Build Include="dbo\Views\WSOL_VW_IMPORTS_SALESFORCE_INFORMATICA_WFM_1.sql" />
+    <Build Include="dbo\Views\YZ_VW_IMPORTS_APFM_UV_ANT_AIA_1.sql" />
+    <Build Include="dbo\Views\YZ_VW_IMPORTS_DATALOT_UV_ANT_AIA_1.sql" />
+    <Build Include="dbo\Views\YZ_VW_IMPORTS_STUBHUB_UV_ANT_AIA_1.sql" />
+    <Build Include="dbo\Views\WSOL_VW_IMPORTS_VYNE_PATS_ACCESS_1.sql" />
+    <Build Include="dbo\Functions\GetDate_1.sql" />
+    <Build Include="dbo\Functions\TVF_GA_STATES_TO_INTERVALS_1.sql" />
+    <Build Include="dbo\Functions\TVF_APFM_FIVE9_STATES_TO_INTERVALS_1.sql" />
+    <Build Include="dbo\Functions\TVF_BRIGHT_PATTERN_STATES_TO_INTERVALS_1.sql" />
+    <Build Include="dbo\Functions\TVF_MONAT_STATES_TO_INTERVALS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_APFM_AIA_XML_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_APFM_AIA_REPORTING_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_APFM_AIA_AGENT_MAPPING_MISSING_AGENTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_APFM_AIA_AGENT_MAPPING_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_APFM_AIA_AGENT_MAPPING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\usp_SQL_JOBS_ON_FAILURE_ERRORS__SET_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GAR_UNRECOGNIZED_UNAVAILABLE_CODES_1.sql" />
+    <Build Include="dbo\Stored Procedures\usp_SQL_JOBS_ON_FAILURE_ERRORS__GET_1.sql" />
+    <Build Include="dbo\Stored Procedures\usp_SQL_JOBS_1.sql" />
+    <Build Include="dbo\Stored Procedures\usp_SQL_JOB_ERRORS__SET_1.sql" />
+    <Build Include="dbo\Stored Procedures\usp_SQL_JOB_ERRORS__GET_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_INCONTACT_UNRECOGNIZED_UNAVAILABLE_CODES_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_CHAT_INVOICING_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_CHAT_INVOICING_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_EGENCIA_ASPECT_EXCEPTIONS_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_EGENCIA_ASPECT_EXCEPTIONS_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_EGENCIA_AIA_AGENT_MAPPING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_EGENCIA_AIA_AGENT_MAPPING_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_AIA_AGENT_MAPPING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_RAW_DATA_II_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_BRIGHT_PATTERN_AGENT_INVOICING_REPORTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_RAW_DATA_II_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_IMPORT_STATUS_WRAP_EQUALS_LOGIN_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_BRIGHT_PATTERN_AIA_XML_1.sql" />
+    <Build Include="dbo\Stored Procedures\sp_GetRowsForAllTables_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_IC_INVOICING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SABRE_SYNXIS_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SABRE_SYNXIS_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_EGENCIA_INVOICING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_EGENCIA_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_EGENCIA_IMPORT_STATUS_MISSING_DATA_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_EGENCIA_AIA_AGENT_MAPPING_MISSING_AGENTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_EGENCIA_INVOICING_IMPORT_UPDATE_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_INVOICING_IMPORT_2.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_OB_IMPORT_STATUS_MISSING_DATA_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_NPS_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_AGENT_INVOICING_REPORTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_OB_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_NPS_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_INCONTACT_OB_INVOICING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_IMPORT_STATUS_MISSING_DATA_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_INCONTACT_INVOICING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_AIA_AGENT_MAPPING_MISSING_AGENTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_INCONTACT_AGENT_INVOICING_REPORTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_IMPORT_STATUS_MISSING_DATA_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_AIA_XML_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_AIA_XML_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_EGENCIA_QA_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_AIA_AGENT_MAPPING_MISSING_AGENTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_EGENCIA_QA_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_AIA_AGENT_MAPPING_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_AIA_AGENT_MAPPING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_EGENCIA_AGENT_INVOICING_REPORTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_VYNE_PATS_ACCESS_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DATALOT_INVOICING_IMPORT_UPDATE_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_EGENCIA_AIA_XML_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_INVOICING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_AIA_XML_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_AIA_AGENT_MAPPING_MISSING_AGENTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspWSOL_DATALOT_SCORECARD_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_AIA_AGENT_MAPPING_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_AIA_AGENT_MAPPING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_AGENT_INVOICING_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SCHEDULE_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SCHEDULE_MISSING_MAP_KEYS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SCHEDULE_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SALESFORCE_INFORMATICA_WFM_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_IC_OB_INVOICING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SALESFORCE_INFORMATICA_WFM_INVALID_RECORDS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_AIA_AGENT_MAPPING_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SALESFORCE_INFORMATICA_WFM_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SALESFORCE_INFORMATICA_WFM_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SABRE_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\usp_ExampleProc_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SABRE_INVOICING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SABRE_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SABRE_AIA_XML_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SABRE_AIA_AGENT_MAPPING_MISSING_AGENTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_CHAT_PERFORMANCE_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SABRE_AIA_AGENT_MAPPING_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_CHAT_PERFORMANCE_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SABRE_AIA_AGENT_MAPPING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DATALOT_AGG_PERFORMANCE_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_SABRE_AGENT_INVOICING_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DATALOT_AGG_PERFORMANCE_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_OB_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_HUMACH_INVOICING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_OB_IMPORT_STATUS_MISSING_DATA_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_HUMACH_IMPORT_STATUS_MISSING_DATA_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_IC_UNRECOGNIZED_UNAVAILABLE_CODES_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_HUMACH_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_HUMACH_DEFAULT_INVOICE_GROUPS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_IC_AGENT_INVOICING_REPORTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_HUMACH_DEFAULT_CUSTOMERS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_HUMACH_AIA_XML_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_HUMACH_AIA_AGENT_MAPPING_MISSING_AGENTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_HUMACH_AGENT_INVOICING_REPORTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GAR_Summary_OUTBOUND_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GAR_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GAR_INVOICING_OUTBOUND_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_EGENCIA_CMS_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GAR_INVOICING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_EGENCIA_CMS_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GAR_IMPORT_STATUS_OUTBOUND_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GAR_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_QA_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GAR_DEFAULT_INVOICE_GROUPS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_STUBHUB_QA_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GAR_AIA_XML_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GAR_AIA_AGENT_MAPPING_MISSING_AGENTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GAR_AGENT_INVOICING_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GA_INVOICING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GA_IMPORT_STATUS_MISSING_DATA_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GA_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GA_AIA_XML_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DATALOT_REP_SCORECARD_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GA_AIA_AGENT_MAPPING_MISSING_AGENTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DATALOT_REP_SCORECARD_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GA_AIA_AGENT_MAPPING_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GA_AIA_AGENT_MAPPING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_GA_AGENT_INVOICING_REPORTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_EMAIL_RESOLVED_WEEKLY_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DATALOT_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DATALOT_INVOICING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DATALOT_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DATALOT_AIA_XML_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_EMAIL_RESOLVED_WEEKLY_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DATALOT_AIA_AGENT_MAPPING_MISSING_ASA_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_EMAIL_RESOLVED_WEEKLY_IMPORT_STATUS_MISSING_DATA_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DATALOT_AIA_AGENT_MAPPING_MISSING_AGENTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_EMAIL_RESOLVED_WEEKLY_AGENT_MAPPING_MISSING_AGENTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DATALOT_AIA_AGENT_MAPPING_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_WV_EMAIL_RESOLVED_WEEKLY_REPORTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DATALOT_AIA_AGENT_MAPPING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DATALOT_AGENT_INVOICING_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DAILY_SCHEDULE_TENANT_NAMES_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_BRIGHT_PATTERN_INVOICING_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DAILY_SCHEDULE_REPORTING_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DAILY_SCHEDULE_OFFICIAL_ACL_NAMES_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_DAILY_SCHEDULE_IMPORT_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_INVOICING_IMPORT_1_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_APFM_Summary_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_BRIGHT_PATTERN_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_MONAT_AGENT_INVOICING_REPORTS_01_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_APFM_INVOICING_IMPORT_WITH_SKILLS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_BRIGHT_PATTERN_DEFAULT_CUSTOMERS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_APFM_IMPORT_STATUS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_BRIGHT_PATTERN_DEFAULT_INVOICE_GROUPS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_APFM_FIVE9_AIA_NON_BILLABLE_SKILLS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_BRIGHT_PATTERN_IMPORT_STATUS_MISSING_DATA_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_APFM_DEFAULT_SCHEDULER_GROUPS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_BRIGHT_PATTERN_AIA_AGENT_MAPPING_MISSING_AGENTS_1.sql" />
+    <Build Include="dbo\Stored Procedures\uspIMPORTS_APFM_DEFAULT_INVOICE_GROUPS_1.sql" />
+    <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment1.sql" />
+    <None Include="Scripts\Post-Deployment\LookupData\David.sql" />
+    <Build Include="dbo\Tables\david.sql" />
+    <Build Include="dbo\Tables\isaac.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="GenGim.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\Post-Deployment\LookupData\isaac.sql" />
+  </ItemGroup>
+</Project>

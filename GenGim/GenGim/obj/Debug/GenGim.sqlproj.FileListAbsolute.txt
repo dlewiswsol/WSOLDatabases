@@ -1,0 +1,9 @@
+C:\data\Code\Personal\DB Project\GenGim\GenGim\bin\Debug\GenGim.dacpac
+C:\data\Code\Personal\DB Project\GenGim\GenGim\bin\Debug\GenGim.dll
+C:\data\Code\Personal\DB Project\GenGim\GenGim\bin\Debug\GenGim.pdb
+C:\data\Code\Personal\DB Project\GenGim\GenGim\obj\Debug\GenGim.dll
+C:\data\Code\Personal\DB Project\GenGim\GenGim\obj\Debug\GenGim.pdb
+C:\data\Code\Personal\DB Project\GenGim\GenGim\obj\Debug\Model.xml
+C:\data\Code\Personal\DB Project\GenGim\GenGim\obj\Debug\refactor.xml
+C:\data\Code\Personal\DB Project\GenGim\GenGim\obj\Debug\postdeploy.sql
+C:\data\Code\Personal\DB Project\GenGim\GenGim\obj\Debug\predeploy.sql

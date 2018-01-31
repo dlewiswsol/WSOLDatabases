@@ -1,0 +1,4 @@
+﻿
+CREATE PROCEDURE usp_ExampleProc
+AS
+	SELECT * FROM BOGUS_TABLE;

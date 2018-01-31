@@ -1,0 +1,16 @@
+﻿CREATE TABLE [dbo].[WSOL_TB_IMPORTS_APFM_INVOICING_0_Audit] (
+    [FF_DATE]               VARCHAR (50)  NULL,
+    [FF_HOUR]               VARCHAR (50)  NULL,
+    [FF_SKILL_AVAILABILITY] VARCHAR (500) NULL,
+    [FF_AGENT_NAME]         VARCHAR (100) NULL,
+    [FF_STATE]              VARCHAR (50)  NULL,
+    [FF_REASON_CODE]        VARCHAR (50)  NULL,
+    [FF_AGENT_STATE_TIME]   VARCHAR (50)  NULL,
+    [FF_TIMESTAMP]          VARCHAR (50)  NULL,
+    [SEQNO_ADDED_TIME]      DATETIME      NOT NULL,
+    [SEQNO]                 INT           NOT NULL,
+    [FTP_FILE_NAME]         VARCHAR (100) NOT NULL,
+    [ID]                    INT           IDENTITY (1, 1) NOT NULL,
+    CONSTRAINT [PK_WSOL_TB_IMPORTS_APFM_INVOICING_0_Audit] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+

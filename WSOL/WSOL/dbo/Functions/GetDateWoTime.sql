@@ -1,0 +1,4 @@
+﻿CREATE FUNCTION [dbo].[GetDateWoTime]() RETURNS DATE
+AS BEGIN
+ RETURN getdate() AT TIME ZONE 'UTC' AT TIME ZONE 'Central Standard Time'
+END

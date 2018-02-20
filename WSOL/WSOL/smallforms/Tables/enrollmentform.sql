@@ -1,0 +1,26 @@
+﻿CREATE TABLE [smallforms].[enrollmentform] (
+    [id]             BIGINT        IDENTITY (2874, 1) NOT NULL,
+    [BenifName]      VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [GroupNum]       VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [SocialSecNum]   VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [MedicareIDNum]  VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [DateofBirth]    VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [Gender]         VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [Address]        VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [PhoneNum]       VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [City]           VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [State]          VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [Zip]            VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [MedicareAB]     VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [StMedicate]     VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [TypeCall]       VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [Enrollment]     VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [PreEnrollment]  VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [CallbackNeeded] VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [QuestPric]      VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [Agent]          VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [datew]          DATE          DEFAULT ([dbo].[GETDATE]()) NOT NULL,
+    [timew]          TIME (7)      DEFAULT ('00:00:00') NOT NULL,
+    CONSTRAINT [PK_enrollmentform_id] PRIMARY KEY CLUSTERED ([id] ASC)
+);
+

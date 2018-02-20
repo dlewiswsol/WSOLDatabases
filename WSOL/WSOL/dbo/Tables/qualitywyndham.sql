@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[qualitywyndham] (
+    [idqualitywyndham] BIGINT        IDENTITY (458, 1) NOT NULL,
+    [idqualityscores]  BIGINT        DEFAULT ((0)) NOT NULL,
+    [idreason]         BIGINT        DEFAULT ((0)) NOT NULL,
+    [apprtime]         VARCHAR (50)  DEFAULT (N'') NOT NULL,
+    [idprogram]        BIGINT        DEFAULT ((0)) NOT NULL,
+    [idmonitor]        BIGINT        DEFAULT ((0)) NOT NULL,
+    [callertype]       VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [enfritone]        VARCHAR (10)  DEFAULT (N'') NOT NULL,
+    [obtnec]           VARCHAR (10)  DEFAULT (N'') NOT NULL,
+    [askedif]          VARCHAR (10)  DEFAULT (N'') NOT NULL,
+    [estrapp]          VARCHAR (10)  DEFAULT (N'') NOT NULL,
+    [quocorr]          VARCHAR (10)  DEFAULT (N'') NOT NULL,
+    [asksale]          VARCHAR (10)  DEFAULT (N'') NOT NULL,
+    [secsale]          VARCHAR (10)  DEFAULT (N'') NOT NULL,
+    [savethesale]      VARCHAR (10)  DEFAULT (N'') NOT NULL,
+    [solfut]           VARCHAR (10)  DEFAULT (N'') NOT NULL,
+    [recapreser]       VARCHAR (10)  DEFAULT (N'') NOT NULL,
+    [usedcorrclos]     VARCHAR (10)  DEFAULT (N'1') NOT NULL,
+    [usedf]            VARCHAR (10)  DEFAULT (N'') NOT NULL,
+    [inputf]           VARCHAR (10)  DEFAULT (N'') NOT NULL,
+    [overeval]         VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [comments]         VARCHAR (MAX) NOT NULL,
+    CONSTRAINT [PK_qualitywyndham_idqualitywyndham] PRIMARY KEY CLUSTERED ([idqualitywyndham] ASC)
+);
+

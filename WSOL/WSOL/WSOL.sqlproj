@@ -1,0 +1,543 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>WSOL</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{a05baad0-dc97-423b-a9eb-a792e7951ad3}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>WSOL</RootNamespace>
+    <AssemblyName>WSOL</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <ValidateCasingOnIdentifiers>False</ValidateCasingOnIdentifiers>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\Sequences\" />
+    <Folder Include="External Resources\" />
+    <Folder Include="Scripts" />
+    <Folder Include="Security\" />
+    <Folder Include="smallforms" />
+    <Folder Include="smallforms\Tables" />
+    <Folder Include="Scripts\External Resources" />
+    <Folder Include="Scripts\Valid Values" />
+    <Folder Include="Scripts\External Resources\Drop" />
+    <Folder Include="Scripts\External Resources\Build" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\zestcashqaformcalltype.sql" />
+    <Build Include="dbo\Tables\WVAgent2AgentHelpOpportForm.sql" />
+    <Build Include="dbo\Tables\WVAgent2AgentHelpOpportErrType.sql" />
+    <Build Include="dbo\Tables\WVAgent2AgentHelpOpportCallType.sql" />
+    <Build Include="dbo\Tables\WSOL_TB_IMPORTS_HARVER_ASSESSMENTS.sql" />
+    <Build Include="dbo\Tables\WORKSTATIONPROFILE.sql" />
+    <Build Include="dbo\Tables\workstationoperation1800.sql" />
+    <Build Include="dbo\Tables\WORKSTATIONOPERATION.sql" />
+    <Build Include="dbo\Tables\WORKPLACE.sql" />
+    <Build Include="dbo\Tables\W9RECORDS.sql" />
+    <Build Include="dbo\Tables\W9CHANGES.sql" />
+    <Build Include="dbo\Tables\verizonwinbackformfeature.sql" />
+    <Build Include="dbo\Tables\verizonwinbackform.sql" />
+    <Build Include="dbo\Tables\USERS.sql" />
+    <Build Include="dbo\Tables\TYPEOFPREPARATION.sql" />
+    <Build Include="dbo\Tables\ts1trainername.sql" />
+    <Build Include="dbo\Tables\ts1projectname.sql" />
+    <Build Include="dbo\Tables\ts1datanew.sql" />
+    <Build Include="dbo\Tables\ts1agents.sql" />
+    <Build Include="dbo\Tables\TRAINEDON.sql" />
+    <Build Include="dbo\Tables\TIMEZONE.sql" />
+    <Build Include="dbo\Tables\TESTEDTYPE.sql" />
+    <Build Include="dbo\Tables\TESTEDSTATUS.sql" />
+    <Build Include="dbo\Tables\TESTED.sql" />
+    <Build Include="dbo\Tables\TELEPHONESERVICETYPE.sql" />
+    <Build Include="dbo\Tables\suggforsuccemail.sql" />
+    <Build Include="dbo\Tables\suggforsucc.sql" />
+    <Build Include="dbo\Tables\submipaddress.sql" />
+    <Build Include="dbo\Tables\SUBMEMAILTMP.sql" />
+    <Build Include="dbo\Tables\submchanges.sql" />
+    <Build Include="dbo\Tables\subm_del.sql" />
+    <Build Include="dbo\Tables\subm.sql" />
+    <Build Include="dbo\Tables\stubhubreputilsubcategory.sql" />
+    <Build Include="dbo\Tables\stubhubreputilqueue.sql" />
+    <Build Include="dbo\Tables\stubhubreputilcategory.sql" />
+    <Build Include="dbo\Tables\STATE.sql" />
+    <Build Include="dbo\Tables\sprinttepchurnstate.sql" />
+    <Build Include="dbo\Tables\sprinttepchurncoveragetype.sql" />
+    <Build Include="dbo\Tables\sprinttepchurncancelreason.sql" />
+    <Build Include="dbo\Tables\sprinttepchurncalloutcome.sql" />
+    <Build Include="dbo\Tables\sprintoeenrollmentdeclinedsoc.sql" />
+    <Build Include="dbo\Tables\sprintoeenrollmentdeclinedreason.sql" />
+    <Build Include="dbo\Tables\SEX.sql" />
+    <Build Include="dbo\Tables\SECRETQUESTION.sql" />
+    <Build Include="dbo\Tables\sctakeaactdisp.sql" />
+    <Build Include="dbo\Tables\schtimes_tl_waitqueue.sql" />
+    <Build Include="dbo\Tables\schtimes_tl_schedule_type.sql" />
+    <Build Include="dbo\Tables\schtimes_tl_reduce.sql" />
+    <Build Include="dbo\Tables\schtimes_tl.sql" />
+    <Build Include="dbo\Tables\schtimes_cancel_apprdenyqueue.sql" />
+    <Build Include="dbo\Tables\schtimes_cancel.sql" />
+    <Build Include="dbo\Tables\schtimes_agent.sql" />
+    <Build Include="dbo\Tables\schswap.sql" />
+    <Build Include="dbo\Tables\schnotes.sql" />
+    <Build Include="dbo\Tables\schacltenure.sql" />
+    <Build Include="dbo\Tables\schacl.sql" />
+    <Build Include="dbo\Tables\SATSNIC.sql" />
+    <Build Include="dbo\Tables\SATSINFO.sql" />
+    <Build Include="dbo\Tables\SATSINETADDR.sql" />
+    <Build Include="dbo\Tables\SATSDETAIL.sql" />
+    <Build Include="dbo\Tables\safnetpnrresponsecode.sql" />
+    <Build Include="dbo\Tables\safnethowticketproc.sql" />
+    <Build Include="dbo\Tables\safnetdesignator.sql" />
+    <Build Include="dbo\Tables\safnetcrdtrend.sql" />
+    <Build Include="dbo\Tables\safnetagentassisfee.sql" />
+    <Build Include="dbo\Tables\safnetactiontaken.sql" />
+    <Build Include="dbo\Tables\sabrevantguestrelcalllogreason.sql" />
+    <Build Include="dbo\Tables\sabrevantguestrelcalllogoutbreason.sql" />
+    <Build Include="dbo\Tables\sabrevantguestrelcalllogdata.sql" />
+    <Build Include="dbo\Tables\sabreqcform.sql" />
+    <Build Include="dbo\Tables\sabrecsrnotificationshotel2.sql" />
+    <Build Include="dbo\Tables\sabrecsrnotificationsdata2.sql" />
+    <Build Include="dbo\Tables\RESUMEFILE.sql" />
+    <Build Include="dbo\Tables\REFERRALPROGRAMHIST.sql" />
+    <Build Include="dbo\Tables\REFERRALPROGRAM.sql" />
+    <Build Include="dbo\Tables\RACE.sql" />
+    <Build Include="dbo\Tables\qualitywyndham.sql" />
+    <Build Include="dbo\Tables\qualitytrcity.sql" />
+    <Build Include="dbo\Tables\qualitysrcform.sql" />
+    <Build Include="dbo\Tables\qualityscores.sql" />
+    <Build Include="dbo\Tables\qualitysalesmonit.sql" />
+    <Build Include="dbo\Tables\qualityreason.sql" />
+    <Build Include="dbo\Tables\qualityqaq10.sql" />
+    <Build Include="dbo\Tables\qualityqa.sql" />
+    <Build Include="dbo\Tables\qualityprogram.sql" />
+    <Build Include="dbo\Tables\qualitypp.sql" />
+    <Build Include="dbo\Tables\qualityoffdep.sql" />
+    <Build Include="dbo\Tables\qualitymonitor.sql" />
+    <Build Include="dbo\Tables\PROJTYPESUSEPREL.sql" />
+    <Build Include="dbo\Tables\PROJTYPESUSE.sql" />
+    <Build Include="dbo\Tables\PROJTYPESLIST.sql" />
+    <Build Include="dbo\Tables\PROJTYPESABLEUSEPREL.sql" />
+    <Build Include="dbo\Tables\PROJTYPESABLEUSE.sql" />
+    <Build Include="dbo\Tables\PROJTYPESABLELIST.sql" />
+    <Build Include="dbo\Tables\projecttoaspectcode.sql" />
+    <Build Include="dbo\Tables\PROJECTSTATUSTYPE.sql" />
+    <Build Include="dbo\Tables\PROJECTSTATUS.sql" />
+    <Build Include="dbo\Tables\PROJECT.sql" />
+    <Build Include="dbo\Tables\program.sql" />
+    <Build Include="dbo\Tables\proggroups.sql" />
+    <Build Include="dbo\Tables\prodarea.sql" />
+    <Build Include="dbo\Tables\principalsecretqa.sql" />
+    <Build Include="dbo\Tables\primaryprojectmanager.sql" />
+    <Build Include="dbo\Tables\PREPSTATUS.sql" />
+    <Build Include="dbo\Tables\PREPARATIONUSER.sql" />
+    <Build Include="dbo\Tables\PREPARATIONTRAINER4LIST3.sql" />
+    <Build Include="dbo\Tables\PREPARATIONTRAINER4LIST2.sql" />
+    <Build Include="dbo\Tables\PREPARATIONTRAINER4LIST1.sql" />
+    <Build Include="dbo\Tables\PREPARATIONTRAINER.sql" />
+    <Build Include="dbo\Tables\PREPARATIONREASON.sql" />
+    <Build Include="dbo\Tables\PREPARATIONGROUPOFCLASSES.sql" />
+    <Build Include="dbo\Tables\preparationdatainvdetails.sql" />
+    <Build Include="dbo\Tables\PREPARATIONDATA.sql" />
+    <Build Include="dbo\Tables\PREPARATIONAGENTONGOING.sql" />
+    <Build Include="dbo\Tables\PREPARATIONAGENT.sql" />
+    <Build Include="dbo\Tables\PERFORMANCE.sql" />
+    <Build Include="dbo\Tables\paidsecondnew.sql" />
+    <Build Include="dbo\Tables\paidsecondadhoc.sql" />
+    <Build Include="dbo\Tables\paidnew.sql" />
+    <Build Include="dbo\Tables\paid.sql" />
+    <Build Include="dbo\Tables\OTHERDOCUMENTDOCTYPE.sql" />
+    <Build Include="dbo\Tables\OPERSYSTEM.sql" />
+    <Build Include="dbo\Tables\OFTENUSE.sql" />
+    <Build Include="dbo\Tables\notes.sql" />
+    <Build Include="dbo\Tables\NAMECHAGEHISTTORY.sql" />
+    <Build Include="dbo\Tables\MODEM.sql" />
+    <Build Include="dbo\Tables\MILITARY_MEMBER.sql" />
+    <Build Include="dbo\Tables\mergereportmapping.sql" />
+    <Build Include="dbo\Tables\manualmapfld.sql" />
+    <Build Include="dbo\Tables\manualmapdata.sql" />
+    <Build Include="dbo\Tables\madssauditpolicy.sql" />
+    <Build Include="dbo\Tables\madssauditmarket.sql" />
+    <Build Include="dbo\Tables\madssauditjobtype.sql" />
+    <Build Include="dbo\Tables\madssauditflag.sql" />
+    <Build Include="dbo\Tables\LINEOFBUS.sql" />
+    <Build Include="dbo\Tables\LEVELEDUC.sql" />
+    <Build Include="dbo\Tables\LETTERHISTORY.sql" />
+    <Build Include="dbo\Tables\LANGUSEPREL.sql" />
+    <Build Include="dbo\Tables\LANGUSEARCHIVED.sql" />
+    <Build Include="dbo\Tables\LANGUSE.sql" />
+    <Build Include="dbo\Tables\LANGLIST.sql" />
+    <Build Include="dbo\Tables\KUDOSDEPARTMENT.sql" />
+    <Build Include="dbo\Tables\invoicemakeruserrolemap.sql" />
+    <Build Include="dbo\Tables\invoicemakeruser.sql" />
+    <Build Include="dbo\Tables\invoicemakerrole.sql" />
+    <Build Include="dbo\Tables\invoiceformmembership.sql" />
+    <Build Include="dbo\Tables\invoicecategory.sql" />
+    <Build Include="dbo\Tables\INTERVIEWEDRECOM.sql" />
+    <Build Include="dbo\Tables\INTERVIEWED.sql" />
+    <Build Include="dbo\Tables\INTEREST.sql" />
+    <Build Include="dbo\Tables\inetautoinvxmlfile.sql" />
+    <Build Include="dbo\Tables\inetautoinvdataupdatestatus.sql" />
+    <Build Include="dbo\Tables\inetautoinvdata.sql" />
+    <Build Include="dbo\Tables\IDAPPSTATUSHISTORY.sql" />
+    <Build Include="dbo\Tables\icims_person.sql" />
+    <Build Include="dbo\Tables\icims_import.sql" />
+    <Build Include="dbo\Tables\i9sportsqamonitorform.sql" />
+    <Build Include="dbo\Tables\i9sportsform.sql" />
+    <Build Include="dbo\Tables\HRNOTE.sql" />
+    <Build Include="dbo\Tables\HireIQResult.sql" />
+    <Build Include="dbo\Tables\HIREIQ_CATS_IMPORT.sql" />
+    <Build Include="dbo\Tables\HEARABOUT.sql" />
+    <Build Include="dbo\Tables\generalassemblyqaform.sql" />
+    <Build Include="dbo\Tables\ewfmschedulerdatafeedmap.sql" />
+    <Build Include="dbo\Tables\egenciaqaform.sql" />
+    <Build Include="dbo\Tables\egenciaopmap.sql" />
+    <Build Include="dbo\Tables\egenciaopincomfile.sql" />
+    <Build Include="dbo\Tables\egenciaopholiday.sql" />
+    <Build Include="dbo\Tables\egenciaopclientbilling.sql" />
+    <Build Include="dbo\Tables\egenciaopagentbilling.sql" />
+    <Build Include="dbo\Tables\editnotes.sql" />
+    <Build Include="dbo\Tables\disputeinvoice.sql" />
+    <Build Include="dbo\Tables\COUNTRY.sql" />
+    <Build Include="dbo\Tables\CONVICTEDPREL.sql" />
+    <Build Include="dbo\Tables\CONVICTED.sql" />
+    <Build Include="dbo\Tables\CONTRACTTRAINERMYMANAGER.sql" />
+    <Build Include="dbo\Tables\CONTRACTTRAINERINVOICETMPCOMM.sql" />
+    <Build Include="dbo\Tables\CONTRACTTRAINERINVOICETMP.sql" />
+    <Build Include="dbo\Tables\CONTRACTTRAINERINVOICEMAP.sql" />
+    <Build Include="dbo\Tables\COMPAPPUSEARCHIVED.sql" />
+    <Build Include="dbo\Tables\COMPAPPUSE.sql" />
+    <Build Include="dbo\Tables\COMPAPPLIST.sql" />
+    <Build Include="dbo\Tables\commonacl.sql" />
+    <Build Include="dbo\Tables\clientbusiness.sql" />
+    <Build Include="dbo\Tables\canceltype.sql" />
+    <Build Include="dbo\Tables\bulletinboard30minalert.sql" />
+    <Build Include="dbo\Tables\bookitcombookingagentmonitor.sql" />
+    <Build Include="dbo\Tables\BackgroundsOnline.sql" />
+    <Build Include="dbo\Tables\AVAILABILITYUSEPREL.sql" />
+    <Build Include="dbo\Tables\AVAILABILITYUSE.sql" />
+    <Build Include="dbo\Tables\AVAILABILITYLIST.sql" />
+    <Build Include="dbo\Tables\autoinvtotal.sql" />
+    <Build Include="dbo\Tables\autoinvfile.sql" />
+    <Build Include="dbo\Tables\attwueentryforminsprog.sql" />
+    <Build Include="dbo\Tables\attwueentryformcustreq.sql" />
+    <Build Include="dbo\Tables\attdecdedcoveragetype.sql" />
+    <Build Include="dbo\Tables\attdecdedcallreason.sql" />
+    <Build Include="dbo\Tables\attdecdedcalloutcome.sql" />
+    <Build Include="dbo\Tables\usa_states.sql" />
+    <Build Include="dbo\Tables\asurioncrickettranscampreason.sql" />
+    <Build Include="dbo\Tables\asurionattredcancformdata.sql" />
+    <Build Include="dbo\Tables\ARPREFER.sql" />
+    <Build Include="dbo\Tables\ARPKUDOS.sql" />
+    <Build Include="dbo\Tables\APPSTATUS.sql" />
+    <Build Include="dbo\Tables\APPLICANT_PRELIMINARY.sql" />
+    <Build Include="dbo\Tables\APPLICANT.sql" />
+    <Build Include="dbo\Tables\APOSTSTATUS.sql" />
+    <Build Include="dbo\Tables\APOSTPR.sql" />
+    <Build Include="dbo\Tables\APOSTEVAL.sql" />
+    <Build Include="dbo\Tables\APOST.sql" />
+    <Build Include="dbo\Tables\APLCONTRACT_TYPE_DOC.sql" />
+    <Build Include="dbo\Tables\aplcontract_payproc.sql" />
+    <Build Include="dbo\Tables\APLCONTRACT.sql" />
+    <Build Include="dbo\Tables\apfmqaform.sql" />
+    <Build Include="dbo\Tables\aiiftopic.sql" />
+    <Build Include="dbo\Tables\aiifprogram2email.sql" />
+    <Build Include="dbo\Tables\aiifprogram.sql" />
+    <Build Include="dbo\Tables\aiifmanagerofdata.sql" />
+    <Build Include="dbo\Tables\aiifdata.sql" />
+    <Build Include="dbo\Tables\agents.sql" />
+    <Build Include="dbo\Tables\agentinvoiceinquiryprojman.sql" />
+    <Build Include="dbo\Tables\agentinvoiceinquiryproj.sql" />
+    <Build Include="dbo\Tables\AGE.sql" />
+    <Build Include="dbo\Tables\absentnotifmanag.sql" />
+    <Build Include="dbo\Tables\absencenotes.sql" />
+    <Build Include="dbo\Views\WVAgent2AgentHelpOpp_agent_role.sql" />
+    <Build Include="dbo\Views\wsolagentrecroutbdialing_agent_role.sql" />
+    <Build Include="dbo\Views\wsolagentrecroutbdialing_agent_group.sql" />
+    <Build Include="dbo\Views\verizongrandfathercancform_agent_role.sql" />
+    <Build Include="dbo\Views\verizongrandfathercancform_agent_group.sql" />
+    <Build Include="dbo\Views\verizonautorenewcancelform_agent_role.sql" />
+    <Build Include="dbo\Views\verizonautorenewcancelform_agent_group.sql" />
+    <Build Include="dbo\Views\tmoacer_agent_role.sql" />
+    <Build Include="dbo\Views\tmoacer_agent_group.sql" />
+    <Build Include="dbo\Views\TeamLeader_agent_role.sql" />
+    <Build Include="dbo\Views\TeamLeader_agent_group.sql" />
+    <Build Include="dbo\Views\stubhubreputil_agent_role.sql" />
+    <Build Include="dbo\Views\sprint3cmrefund_agent_role.sql" />
+    <Build Include="dbo\Views\sprint3cmrefund_agent_group.sql" />
+    <Build Include="dbo\Views\SF_FIELD_MAPPING_WITH_AGENTS.sql" />
+    <Build Include="dbo\Views\SF_Field_Mapping_List.sql" />
+    <Build Include="dbo\Views\SF_Field_Mapping.sql" />
+    <Build Include="dbo\Views\sabrevantguestrelcalllog_agent_role.sql" />
+    <Build Include="dbo\Views\sabrevantguestrelcalllog_agent_group.sql" />
+    <Build Include="dbo\Views\sabrecsrnotif_agent_role.sql" />
+    <Build Include="dbo\Views\sabrecsrnotif_agent_group.sql" />
+    <Build Include="dbo\Views\REFERRALPROGRAMPART2.sql" />
+    <Build Include="dbo\Views\REFERRALPROGRAMPART1.sql" />
+    <Build Include="dbo\Views\PAYPALCOLLECTION_AGENT_ROLE.sql" />
+    <Build Include="dbo\Views\ninewestemailqaform_agent_role.sql" />
+    <Build Include="dbo\Views\ninewestemailqaform_agent_group.sql" />
+    <Build Include="dbo\Views\INTERVIEWER.sql" />
+    <Build Include="dbo\Views\HireIQDataView.sql" />
+    <Build Include="dbo\Views\garcustomerserviceqa_agent_role.sql" />
+    <Build Include="dbo\Views\garcustomerserviceqa_agent_group.sql" />
+    <Build Include="dbo\Views\egenciaoperportal_agent_role.sql" />
+    <Build Include="dbo\Views\egenciaoperportal_agent_group.sql" />
+    <Build Include="dbo\Views\EgenciaOPAgentBillingSat6amToSun10pm.sql" />
+    <Build Include="dbo\Views\dentistdailyperfdashboard_agent_role.sql" />
+    <Build Include="dbo\Views\dentistdailyperfdashboard_agent_group.sql" />
+    <Build Include="dbo\Views\commonallagents_agent_role.sql" />
+    <Build Include="dbo\Views\commonallagents_agent_group.sql" />
+    <Build Include="dbo\Views\attqaform_agent_role.sql" />
+    <Build Include="dbo\Views\attqaform_agent_group.sql" />
+    <Build Include="dbo\Views\asurioncrickettranscamp_agent_role.sql" />
+    <Build Include="dbo\Views\asurioncrickettranscamp_agent_group.sql" />
+    <Build Include="dbo\Views\asosalestracker_agent_role.sql" />
+    <Build Include="dbo\Views\APPLICANT_WITH_CURR_DATE.sql" />
+    <Build Include="dbo\Functions\UNIX_TIMESTAMP.sql" />
+    <Build Include="dbo\Functions\MD5.sql" />
+    <Build Include="dbo\Functions\getNumberOrZero.sql" />
+    <Build Include="dbo\Functions\getFluentLanguages.sql" />
+    <Build Include="dbo\Functions\GetDateWoTime.sql" />
+    <Build Include="dbo\Functions\GetDate.sql" />
+    <Build Include="dbo\Functions\getAgentAvailabPrefs.sql" />
+    <Build Include="dbo\Functions\findHistProjActive.sql" />
+    <Build Include="dbo\Functions\findHistProj.sql" />
+    <Build Include="dbo\Functions\findApplicant.sql" />
+    <Build Include="dbo\Functions\calcSATSAmount.sql" />
+    <Build Include="dbo\Functions\asoSalesTrackerGroup.sql" />
+    <Build Include="dbo\Stored Procedures\GetTMobileCancelationReport.sql" />
+    <Build Include="dbo\Stored Procedures\GetShTransfersReportedDaily.sql" />
+    <Build Include="dbo\Stored Procedures\GetSabreQcForm.sql" />
+    <Build Include="dbo\Stored Procedures\GetDailyStubHubTeamTransferAnalysisReport.sql" />
+    <Build Include="dbo\Stored Procedures\GetDailyStubHubRepLevelTransferAnalysisReport.sql" />
+    <Build Include="dbo\Stored Procedures\GetATTProgramRedesignWSOL.sql" />
+    <Build Include="dbo\Stored Procedures\GetAsurionVCReport.sql" />
+    <Build Include="dbo\Stored Procedures\GetAsurionEscalationReport.sql" />
+    <Build Include="dbo\Stored Procedures\deleteApplicant.sql" />
+    <Build Include="dbo\Tables\valid_value_master.sql" />
+    <Build Include="dbo\Tables\client.sql" />
+    <Build Include="dbo\Tables\LETTERTEMPLATE.sql" />
+    <Build Include="dbo\Tables\TYPEOFUSER.sql" />
+    <Build Include="Security\smallforms.sql" />
+    <Build Include="smallforms\Tables\a.sql" />
+    <Build Include="smallforms\Tables\aform.sql" />
+    <Build Include="smallforms\Tables\aform2.sql" />
+    <Build Include="smallforms\Tables\aplsalestracking.sql" />
+    <Build Include="smallforms\Tables\aplsalestrackinglastrep.sql" />
+    <Build Include="smallforms\Tables\assattend.sql" />
+    <Build Include="smallforms\Tables\asuriondata.sql" />
+    <Build Include="smallforms\Tables\asuriondata063005.sql" />
+    <Build Include="smallforms\Tables\asuriondataorg.sql" />
+    <Build Include="smallforms\Tables\asuriondataorg2.sql" />
+    <Build Include="smallforms\Tables\asuriondataorg3.sql" />
+    <Build Include="smallforms\Tables\asuriondataorg4.sql" />
+    <Build Include="smallforms\Tables\asuriondataorg5.sql" />
+    <Build Include="smallforms\Tables\asuriondatavc.sql" />
+    <Build Include="smallforms\Tables\asuriondatavcver1.sql" />
+    <Build Include="smallforms\Tables\asurionescal.sql" />
+    <Build Include="smallforms\Tables\asurionlastrep.sql" />
+    <Build Include="smallforms\Tables\asurionlastrepvc.sql" />
+    <Build Include="smallforms\Tables\asurionqlastrep.sql" />
+    <Build Include="smallforms\Tables\attredesign.sql" />
+    <Build Include="smallforms\Tables\attredesign20110726.sql" />
+    <Build Include="smallforms\Tables\attredesignbeginreascallabout.sql" />
+    <Build Include="smallforms\Tables\attredesignold20110726.sql" />
+    <Build Include="smallforms\Tables\attredesignoutcome.sql" />
+    <Build Include="smallforms\Tables\attredesignstate.sql" />
+    <Build Include="smallforms\Tables\azcapss.sql" />
+    <Build Include="smallforms\Tables\balboacontinuation.sql" />
+    <Build Include="smallforms\Tables\billgrahamluncheon.sql" />
+    <Build Include="smallforms\Tables\bmsdata.sql" />
+    <Build Include="smallforms\Tables\callescalationform.sql" />
+    <Build Include="smallforms\Tables\chaseprivatelabel_lastrep.sql" />
+    <Build Include="smallforms\Tables\chaseprivatelabel_service.sql" />
+    <Build Include="smallforms\Tables\chaseprivatelabel_voice.sql" />
+    <Build Include="smallforms\Tables\contactsolutiontest.sql" />
+    <Build Include="smallforms\Tables\cricket2in12refund.sql" />
+    <Build Include="smallforms\Tables\cricketterminat.sql" />
+    <Build Include="smallforms\Tables\cricketterminatlr.sql" />
+    <Build Include="smallforms\Tables\cricketterms.sql" />
+    <Build Include="smallforms\Tables\detestvoice.sql" />
+    <Build Include="smallforms\Tables\detestvoiceold.sql" />
+    <Build Include="smallforms\Tables\differentmeal.sql" />
+    <Build Include="smallforms\Tables\documenttest.sql" />
+    <Build Include="smallforms\Tables\enrollmentform.sql" />
+    <Build Include="smallforms\Tables\fopdata.sql" />
+    <Build Include="smallforms\Tables\fopdataorg.sql" />
+    <Build Include="smallforms\Tables\foplastrep.sql" />
+    <Build Include="smallforms\Tables\formother.sql" />
+    <Build Include="smallforms\Tables\hotelsdata.sql" />
+    <Build Include="smallforms\Tables\hotelslacalls.sql" />
+    <Build Include="smallforms\Tables\hotelsrebatedata.sql" />
+    <Build Include="smallforms\Tables\hotelsturndownlogs.sql" />
+    <Build Include="smallforms\Tables\hotelsturndownlogslastrep.sql" />
+    <Build Include="smallforms\Tables\hotwiretransfers.sql" />
+    <Build Include="smallforms\Tables\initsaleslastrep.sql" />
+    <Build Include="smallforms\Tables\initsalesoffer.sql" />
+    <Build Include="smallforms\Tables\mastertermsconditions.sql" />
+    <Build Include="smallforms\Tables\mastertermscondstate.sql" />
+    <Build Include="smallforms\Tables\medalliadata.sql" />
+    <Build Include="smallforms\Tables\medalliadatatest.sql" />
+    <Build Include="smallforms\Tables\metropcsredesigncancelform.sql" />
+    <Build Include="smallforms\Tables\metropcsredesigncancelformlast.sql" />
+    <Build Include="smallforms\Tables\metropcsuwcancelform.sql" />
+    <Build Include="smallforms\Tables\metropcsuwcancelformlastrep.sql" />
+    <Build Include="smallforms\Tables\mississippicademailformcc.sql" />
+    <Build Include="smallforms\Tables\mississippicademailformhfcallback.sql" />
+    <Build Include="smallforms\Tables\movingroovindata.sql" />
+    <Build Include="smallforms\Tables\nationalvisiondata.sql" />
+    <Build Include="smallforms\Tables\nationalvisiondata2.sql" />
+    <Build Include="smallforms\Tables\nationalvisiondata2_test.sql" />
+    <Build Include="smallforms\Tables\nationalvisiondata20150516.sql" />
+    <Build Include="smallforms\Tables\nationalvisiondata2tmp.sql" />
+    <Build Include="smallforms\Tables\nationalvisiondataold.sql" />
+    <Build Include="smallforms\Tables\nationalvisionhrdata.sql" />
+    <Build Include="smallforms\Tables\nationalvisionhrdataerr20101225.sql" />
+    <Build Include="smallforms\Tables\nationalvisionhrdataold.sql" />
+    <Build Include="smallforms\Tables\nationalvisionhrdatatmp.sql" />
+    <Build Include="smallforms\Tables\nationalvisionwav2.sql" />
+    <Build Include="smallforms\Tables\nationalvisionzip2.sql" />
+    <Build Include="smallforms\Tables\ndccustexs.sql" />
+    <Build Include="smallforms\Tables\ndccustexs01102004.sql" />
+    <Build Include="smallforms\Tables\ndccustexs10262004.sql" />
+    <Build Include="smallforms\Tables\ndccustnew.sql" />
+    <Build Include="smallforms\Tables\ndccustnew01102004.sql" />
+    <Build Include="smallforms\Tables\ndcescalation.sql" />
+    <Build Include="smallforms\Tables\ndclastrep.sql" />
+    <Build Include="smallforms\Tables\ndcproducts.sql" />
+    <Build Include="smallforms\Tables\ninewestwhissuestracker.sql" />
+    <Build Include="smallforms\Tables\ninewestwhissuestrackerchoice.sql" />
+    <Build Include="smallforms\Tables\ntelosoeenrollment.sql" />
+    <Build Include="smallforms\Tables\ntelosoeenrollmentfeaturecode.sql" />
+    <Build Include="smallforms\Tables\offcontlist.sql" />
+    <Build Include="smallforms\Tables\ofotoemailformcloning.sql" />
+    <Build Include="smallforms\Tables\ofotoemailformcredits.sql" />
+    <Build Include="smallforms\Tables\packrat_disposition.sql" />
+    <Build Include="smallforms\Tables\packrat_note.sql" />
+    <Build Include="smallforms\Tables\packrat_note_done.sql" />
+    <Build Include="smallforms\Tables\packrat_record.sql" />
+    <Build Include="smallforms\Tables\packrat_record_done.sql" />
+    <Build Include="smallforms\Tables\packrat_record_org.sql" />
+    <Build Include="smallforms\Tables\phonetest.sql" />
+    <Build Include="smallforms\Tables\productpartners.sql" />
+    <Build Include="smallforms\Tables\productpartnerslastrep.sql" />
+    <Build Include="smallforms\Tables\redcrossdata.sql" />
+    <Build Include="smallforms\Tables\renewalform.sql" />
+    <Build Include="smallforms\Tables\renewalformlastrep.sql" />
+    <Build Include="smallforms\Tables\serviceemerilrmcatalog.sql" />
+    <Build Include="smallforms\Tables\serviceemerilrmorder.sql" />
+    <Build Include="smallforms\Tables\sprintredesigncancelform.sql" />
+    <Build Include="smallforms\Tables\sprintredesigncancelformlastrep.sql" />
+    <Build Include="smallforms\Tables\sprintsmsreq4enr.sql" />
+    <Build Include="smallforms\Tables\sprintsmsreq4enrnoenrollment.sql" />
+    <Build Include="smallforms\Tables\sprintsmsreq4enrprogram.sql" />
+    <Build Include="smallforms\Tables\sprintsmsreq4enrtypeofcall.sql" />
+    <Build Include="smallforms\Tables\state.sql" />
+    <Build Include="smallforms\Tables\suncomct.sql" />
+    <Build Include="smallforms\Tables\suncomctpr.sql" />
+    <Build Include="smallforms\Tables\suncomctprcode.sql" />
+    <Build Include="smallforms\Tables\tmobile2tp.sql" />
+    <Build Include="smallforms\Tables\tmobile2tp05102005.sql" />
+    <Build Include="smallforms\Tables\tmobilecancelationform.sql" />
+    <Build Include="smallforms\Tables\tmobilecancelationformlast.sql" />
+    <Build Include="smallforms\Tables\tmobileredesign.sql" />
+    <Build Include="smallforms\Tables\tmobileredesignitems.sql" />
+    <Build Include="smallforms\Tables\tmobileredesignold20081011.sql" />
+    <Build Include="smallforms\Tables\tmp111222.sql" />
+    <Build Include="smallforms\Tables\tracfone.sql" />
+    <Build Include="smallforms\Tables\trxmisdirectedcalls.sql" />
+    <Build Include="smallforms\Tables\trxmisdirectedcallslr.sql" />
+    <Build Include="smallforms\Tables\verizonmanufacmodel.sql" />
+    <Build Include="smallforms\Tables\verizonopenentrollmentform.sql" />
+    <Build Include="smallforms\Tables\verizonwirelesstradeincalltype.sql" />
+    <Build Include="smallforms\Tables\verizonwirelesstradeincalltypechoice.sql" />
+    <Build Include="smallforms\Tables\vermoncelldata.sql" />
+    <Build Include="smallforms\Tables\veroptoutdata.sql" />
+    <Build Include="smallforms\Tables\veroptoutlastrep.sql" />
+    <Build Include="smallforms\Tables\verpuertorico.sql" />
+    <Build Include="smallforms\Tables\vikingdata.sql" />
+    <Build Include="smallforms\Tables\vikinglastrep.sql" />
+    <Build Include="smallforms\Tables\vikingorder.sql" />
+    <Build Include="smallforms\Tables\virtualtour.sql" />
+    <Build Include="smallforms\Tables\virtualtourcountry.sql" />
+    <Build Include="smallforms\Tables\virtualtourstate.sql" />
+    <Build Include="smallforms\Tables\voiceemerilrmcatalog.sql" />
+    <Build Include="smallforms\Tables\voiceemerilrmorder.sql" />
+    <Build Include="smallforms\Tables\vtchurchdata.sql" />
+    <Build Include="smallforms\Tables\xos.sql" />
+    <Build Include="smallforms\Tables\xosservice.sql" />
+    <Build Include="smallforms\Tables\zprep.sql" />
+    <Build Include="dbo\Functions\SHA256.sql" />
+    <Build Include="dbo\Functions\fn_getCatID.sql" />
+    <Build Include="dbo\Functions\fn_getRandomPassword.sql" />
+    <Build Include="dbo\Tables\stubhubreputiltransfer.sql" />
+    <Build Include="External Resources\GEN_GIM_REMOTE_DATA.sql" />
+    <Build Include="dbo\Tables\tmp_APPLICANT.sql" />
+    <Build Include="dbo\Views\vw_RANDOM_PWD_GEN.sql" />
+    <None Include="Scripts\Valid Values\ABLEOBTAINBB-valid_values.sql" />
+    <None Include="Scripts\Valid Values\AGE-valid_values.sql" />
+    <PreDeploy Include="Scripts\External Resources\DropAndBuildAll.sql" />
+    <Build Include="Scripts\External Resources\Drop\StoredProcedures.sql" />
+    <Build Include="Scripts\External Resources\Drop\ExternalDataSource.sql" />
+    <None Include="Scripts\External Resources\Build\Tables.sql" />
+    <None Include="Scripts\External Resources\Build\StoredProcedures.sql" />
+    <None Include="Scripts\External Resources\Build\Functions.sql" />
+    <None Include="Scripts\External Resources\Build\ExternalDataSource.sql" />
+    <None Include="Scripts\External Resources\Build\Views.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\External Resources\Drop\Tables.sql" />
+    <None Include="Scripts\External Resources\Drop\Views.sql" />
+    <None Include="Scripts\External Resources\Drop\Functions.sql" />
+  </ItemGroup>
+</Project>

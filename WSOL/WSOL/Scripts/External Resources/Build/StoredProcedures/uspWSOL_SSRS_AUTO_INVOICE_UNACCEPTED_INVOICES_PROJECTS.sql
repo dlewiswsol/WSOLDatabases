@@ -1,0 +1,47 @@
+﻿
+
+CREATE PROCEDURE [dbo].[uspWSOL_SSRS_AUTO_INVOICE_UNACCEPTED_INVOICES_PROJECTS]
+ @DATE_BEG		DATETIME
+,@DATE_END		DATETIME
+,@CLIENT_ID		VARCHAR(150)
+AS
+SET NOCOUNT ON
+
+--  EXECUTE [dbo].[uspWSOL_SSRS_AUTO_INVOICE_PROJECTS] '06/19/2017','06/19/2017','0'
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DECLARE
+ @DTM_BEG AS DATETIME
+,@DTM_END AS DATETIME
+SET @DTM_BEG = CAST(CONVERT(VARCHAR(10),@DATE_BEG,101) AS DATETIME) 
+SET @DTM_END = CAST(CONVERT(VARCHAR(10),@DATE_END,101) AS DATETIME) + 1
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+SET @CLIENT_ID = ',' + LTRIM(RTRIM(@CLIENT_ID)) + ','
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SELECT
+ PRO.PROJECT_ID
+,PRO.[PROJECT_NAME]
+FROM 
+(	SELECT
+	 I.IDPROJECT							AS PROJECT_ID
+	,ISNULL(P.[NAME],'00-NO PROJECT NAME')	AS [PROJECT_NAME]
+	-- SELECT *
+	FROM AUTOINVTOTAL	I
+	LEFT JOIN PROJECT	P ON I.IDPROJECT = P.IDPROJECT
+
+	WHERE /*( CAST(S.DATESCH AS DATETIME) >= @DTM_BEG AND CAST(S.DATESCH AS DATETIME) <  @DTM_END )
+	AND */( @CLIENT_ID IN (',,',',0,') OR CHARINDEX(',' + CAST(P.IDCLIENT AS VARCHAR(10)) + ',',@CLIENT_ID) > 0 )
+	  AND ( I.RECSTATUS = 'N' )
+
+	GROUP BY
+	  I.IDPROJECT
+	 ,P.[NAME]
+
+) PRO
+ORDER BY PRO.PROJECT_NAME
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+GO

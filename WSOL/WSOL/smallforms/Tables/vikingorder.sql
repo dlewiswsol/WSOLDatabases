@@ -1,0 +1,27 @@
+﻿CREATE TABLE [smallforms].[vikingorder] (
+    [idvikingorder] BIGINT        IDENTITY (1618, 1) NOT NULL,
+    [orderdate]     DATE          DEFAULT ([dbo].[GETDATE]()) NOT NULL,
+    [ordertime]     TIME (7)      DEFAULT ('00:00:00') NOT NULL,
+    [companyname]   VARCHAR (50)  DEFAULT (N'') NOT NULL,
+    [custaccno]     VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [nameofcust]    VARCHAR (35)  DEFAULT (N'') NOT NULL,
+    [contphone]     VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [fax]           VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [addr1]         VARCHAR (25)  DEFAULT (N'') NOT NULL,
+    [addr2]         VARCHAR (25)  DEFAULT (N'') NOT NULL,
+    [addr3]         VARCHAR (25)  DEFAULT (N'') NOT NULL,
+    [city]          VARCHAR (25)  DEFAULT (N'') NOT NULL,
+    [state]         VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [zip]           VARCHAR (10)  DEFAULT (N'') NOT NULL,
+    [ccaccnum]      VARCHAR (18)  DEFAULT (N'') NOT NULL,
+    [civnum]        VARCHAR (5)   DEFAULT (N'') NOT NULL,
+    [expirmon]      VARCHAR (20)  DEFAULT (N'') NOT NULL,
+    [expiryear]     VARCHAR (20)  DEFAULT (N'') NOT NULL,
+    [cctype]        VARCHAR (100) DEFAULT (N'') NOT NULL,
+    [specdelivinst] VARCHAR (40)  DEFAULT (N'') NOT NULL,
+    [csrnote]       VARCHAR (50)  DEFAULT (N'') NOT NULL,
+    [paytype]       CHAR (1)      DEFAULT (N'') NOT NULL,
+    [isnewcust]     CHAR (1)      DEFAULT (N'') NOT NULL,
+    CONSTRAINT [PK_vikingorder_idvikingorder] PRIMARY KEY CLUSTERED ([idvikingorder] ASC)
+);
+

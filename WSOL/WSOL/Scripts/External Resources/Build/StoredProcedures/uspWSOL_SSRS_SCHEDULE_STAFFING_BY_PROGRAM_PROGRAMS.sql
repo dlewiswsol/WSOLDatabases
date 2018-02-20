@@ -1,0 +1,39 @@
+﻿
+CREATE PROCEDURE [dbo].[uspWSOL_SSRS_SCHEDULE_STAFFING_BY_PROGRAM_PROGRAMS]
+ @DATE_BEG		DATETIME
+,@DATE_END		DATETIME
+,@CLIENT_ID		VARCHAR(500)
+AS
+SET NOCOUNT ON
+
+--  EXECUTE [dbo].[uspWSOL_SSRS_SCHEDULE_STAFFING_BY_PROGRAM_PROGRAMS] '07/01/2017','07/31/2017'
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DECLARE
+ @DTM_BEG AS DATETIME
+,@DTM_END AS DATETIME
+SET @DTM_BEG = CAST(CONVERT(VARCHAR(10),@DATE_BEG,101) AS DATETIME) 
+SET @DTM_END = CAST(CONVERT(VARCHAR(10),@DATE_END,101) AS DATETIME) + 1
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SET @CLIENT_ID = ',' + LTRIM(RTRIM(@CLIENT_ID)) + ','
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+SELECT
+ PRG.ID		AS PROGRAM_IDC
+,PRG.[NAME]	AS [PROGRAM_NAME]
+--SELECT *
+FROM SCHTIMES_TL_SCHEDULE_TYPE SCH
+LEFT JOIN PROGRAM	PRG ON SCH.IDPROGR	= PRG.ID
+LEFT JOIN CLIENT	CLI ON PRG.IDCLIENT = CLI.ID
+WHERE PRG.ISSHOW = 1
+  AND ( CAST(SCH.DATESCH AS DATETIME) >= @DTM_BEG AND CAST(SCH.DATESCH AS DATETIME) < @DTM_END )
+  AND ( @CLIENT_ID IN (',,',',0,') OR CHARINDEX(',' + CAST(PRG.IDCLIENT AS VARCHAR(10)) + ',',@CLIENT_ID) > 0 )
+GROUP BY
+ PRG.ID
+,PRG.[NAME]
+ORDER BY 
+ PRG.[NAME]
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+GO

@@ -1,0 +1,81 @@
+﻿
+-----------------------------------------------------------------------------------------------------------------
+--DROP THE VIEWS
+--these have to be done first
+-----------------------------------------------------------------------------------------------------------------
+
+
+
+IF EXISTS(SELECT top(1)* FROM sysobjects WHERE name='WSOL_VW_AGENT_LAST_LOGIN')
+BEGIN
+	DROP VIEW [dbo].[WSOL_VW_AGENT_LAST_LOGIN]
+END
+GO
+
+IF EXISTS(SELECT top(1)* FROM sysobjects WHERE name='WSOL_VW_PBI_AGENT_LAST_LOGIN_DETAIL')
+BEGIN
+	DROP VIEW [dbo].[WSOL_VW_PBI_AGENT_LAST_LOGIN_DETAIL]
+END
+GO
+
+/****** Object:  View [dbo].[WSOL_VW_SCHEDULE_DETAIL]    Script Date: 2/20/2018 10:53:17 AM ******/
+IF EXISTS(SELECT top(1)* FROM sysobjects WHERE name='WSOL_VW_SCHEDULE_DETAIL')
+BEGIN
+	DROP VIEW [dbo].[WSOL_VW_SCHEDULE_DETAIL]
+END
+GO
+
+/****** Object:  View [dbo].[WSOL_VW_PBI_TEST_SCHEDULE_DETAIL]    Script Date: 2/20/2018 10:53:17 AM ******/
+IF EXISTS(SELECT top(1)* FROM sysobjects WHERE name='WSOL_VW_PBI_TEST_SCHEDULE_DETAIL')
+BEGIN
+	DROP VIEW [dbo].[WSOL_VW_PBI_TEST_SCHEDULE_DETAIL]
+END
+GO
+
+/****** Object:  View [dbo].[WSOL_VW_PBI_EDUCATION_ROSTER_DETAIL]    Script Date: 2/20/2018 10:53:17 AM ******/
+IF EXISTS(SELECT top(1)* FROM sysobjects WHERE name='WSOL_VW_PBI_EDUCATION_ROSTER_DETAIL')
+BEGIN
+	DROP VIEW [dbo].[WSOL_VW_PBI_EDUCATION_ROSTER_DETAIL]
+END
+GO
+
+/****** Object:  View [dbo].[WSOL_VW_PBI_ALL_CATS_STATUSES]    Script Date: 2/20/2018 10:53:17 AM ******/
+IF EXISTS(SELECT top(1)* FROM sysobjects WHERE name='WSOL_VW_PBI_ALL_CATS_STATUSES')
+BEGIN
+	DROP VIEW [dbo].[WSOL_VW_PBI_ALL_CATS_STATUSES]
+END
+GO
+
+/****** Object:  View [dbo].[WSOL_VW_IMPORTS_VYNE_PATS_ACCESS_IMPIGER]    Script Date: 2/20/2018 10:53:17 AM ******/
+IF EXISTS(SELECT top(1)* FROM sysobjects WHERE name='WSOL_VW_IMPORTS_VYNE_PATS_ACCESS_IMPIGER')
+BEGIN
+	DROP VIEW [dbo].[WSOL_VW_IMPORTS_VYNE_PATS_ACCESS_IMPIGER]
+END
+GO
+
+/****** Object:  View [dbo].[WSOL_VW_IMPORTS_VYNE_PATS_ACCESS]    Script Date: 2/20/2018 10:53:17 AM ******/
+IF EXISTS(SELECT top(1)* FROM sysobjects WHERE name='WSOL_VW_IMPORTS_VYNE_PATS_ACCESS')
+BEGIN
+	DROP VIEW [dbo].[WSOL_VW_IMPORTS_VYNE_PATS_ACCESS]
+END
+GO
+
+/****** Object:  View [dbo].[WSOL_VW_IMPORTS_SALESFORCE_INFORMATICA_WFM_IG]    Script Date: 2/20/2018 10:53:17 AM ******/
+IF EXISTS(SELECT top(1)* FROM sysobjects WHERE name='WSOL_VW_IMPORTS_SALESFORCE_INFORMATICA_WFM_IG')
+BEGIN
+	DROP VIEW [dbo].[WSOL_VW_IMPORTS_SALESFORCE_INFORMATICA_WFM_IG]
+END
+GO
+
+/****** Object:  View [dbo].[WSOL_VW_IMPORTS_SALESFORCE_INFORMATICA_WFM]    Script Date: 2/20/2018 10:53:17 AM ******/
+IF EXISTS(SELECT top(1)* FROM sysobjects WHERE name='WSOL_VW_IMPORTS_SALESFORCE_INFORMATICA_WFM')
+BEGIN
+	DROP VIEW [dbo].[WSOL_VW_IMPORTS_SALESFORCE_INFORMATICA_WFM]
+END
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO

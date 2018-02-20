@@ -1,0 +1,45 @@
+﻿
+CREATE PROCEDURE [dbo].[uspWSOL_SSRS_AGENT_DETAILS_STATES]
+ @DATE_BEG           DATETIME
+,@DATE_END           DATETIME
+AS
+SET NOCOUNT ON
+
+--  EXECUTE [dbo].[uspWSOL_SSRS_AGENT_DETAILS_STATES] '06/19/2017','06/19/2017'
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DECLARE
+ @DTM_BEG AS DATETIME
+,@DTM_END AS DATETIME
+SET @DTM_BEG = CAST(CONVERT(VARCHAR(10),@DATE_BEG,101) AS DATETIME) 
+SET @DTM_END = CAST(CONVERT(VARCHAR(10),@DATE_END,101) AS DATETIME) + 1
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SELECT
+ AGT.STATE_ID
+,AGT.STATE_NAME
+FROM 
+(	SELECT
+	 APP.IDSTATE									AS STATE_ID
+	,CASE WHEN STA.IDSTATE = '00' THEN 'NO STATE'
+		  ELSE STA.[NAME]							
+	 END											AS STATE_NAME
+	--  SELECT *
+	FROM
+	 APPLICANT	APP
+	,[STATE]	STA	
+		
+	WHERE APP.IDSTATE = STA.IDSTATE
+	  AND STA.VISIBLE = 'Y'
+	--WHERE YT.[DATETIME] >= @DTM_BEG AND YT.[DATETIME] <  @DTM_END
+
+	GROUP BY
+	 APP.IDSTATE
+	,CASE WHEN STA.IDSTATE = '00' THEN 'NO STATE'
+		  ELSE STA.[NAME]							
+	 END
+) AGT
+ORDER BY AGT.STATE_ID
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+GO

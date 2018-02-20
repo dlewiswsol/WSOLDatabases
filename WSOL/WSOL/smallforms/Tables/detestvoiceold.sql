@@ -1,0 +1,26 @@
+﻿CREATE TABLE [smallforms].[detestvoiceold] (
+    [id]         BIGINT           DEFAULT ((0)) NOT NULL,
+    [transid]    CHAR (250)       DEFAULT (N'') NOT NULL,
+    [title]      CHAR (2)         DEFAULT (N'') NOT NULL,
+    [fname]      CHAR (50)        DEFAULT (N'') NOT NULL,
+    [mi]         CHAR (2)         DEFAULT (N'') NOT NULL,
+    [lname]      CHAR (50)        DEFAULT (N'') NOT NULL,
+    [suffix]     CHAR (10)        DEFAULT (N'') NOT NULL,
+    [addr1]      CHAR (100)       DEFAULT (N'') NOT NULL,
+    [addr2]      CHAR (100)       DEFAULT (N'') NOT NULL,
+    [city]       CHAR (30)        DEFAULT (N'') NOT NULL,
+    [state]      CHAR (2)         DEFAULT (N'') NOT NULL,
+    [zip]        CHAR (10)        DEFAULT (N'') NOT NULL,
+    [phone]      CHAR (10)        DEFAULT (N'') NOT NULL,
+    [altexc]     CHAR (1)         DEFAULT (N'') NOT NULL,
+    [altmemo]    CHAR (250)       DEFAULT (N'') NOT NULL,
+    [agentid]    CHAR (20)        DEFAULT (N'') NOT NULL,
+    [timesub]    TIME (7)         DEFAULT ('00:00:00') NOT NULL,
+    [datesub]    DATE             DEFAULT ([dbo].[GETDATE]()) NOT NULL,
+    [filetime]   TIME (7)         DEFAULT ('00:00:00') NOT NULL,
+    [filedate]   DATE             DEFAULT ([dbo].[GETDATE]()) NOT NULL,
+    [status]     CHAR (1)         DEFAULT (N'') NOT NULL,
+    [ssma$rowid] UNIQUEIDENTIFIER DEFAULT (newid()) NOT NULL,
+    CONSTRAINT [PK_detestvoiceold_ssma$rowid] PRIMARY KEY CLUSTERED ([ssma$rowid] ASC)
+);
+

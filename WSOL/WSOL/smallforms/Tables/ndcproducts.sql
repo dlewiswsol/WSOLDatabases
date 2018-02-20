@@ -1,0 +1,44 @@
+﻿CREATE TABLE [smallforms].[ndcproducts] (
+    [id]                  BIGINT        IDENTITY (1, 1) NOT NULL,
+    [SHIP_TO_CUST_NAME]   VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [SHIP_TO_CUST_NUMBER] VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [SHIP_TO_ADDRESS1]    VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [SHIP_TO_ADDRESS2]    VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [SHIP_TO_CITY]        VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [SHIP_TO_STATE]       VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [SHIP_TO_ZIP]         VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [SHIP_TO_PHONE]       VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [SHIP_TO_EMAIL]       VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [SHIP_TO_FAX]         VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [ORDER_NUMBER]        VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [PART_NUMBER]         VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [Product_Description] VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [SERIAL_NUMBER]       VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [INVOICE_NUMBER]      VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [BOOKED_DATE]         DATETIME2 (0) DEFAULT ([dbo].[GETDATE]()) NOT NULL,
+    [SHIP_DATE]           DATETIME2 (0) DEFAULT ([dbo].[GETDATE]()) NOT NULL,
+    [ORDER_TYPE]          VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [datew]               DATETIME2 (0) DEFAULT ([dbo].[GETDATE]()) NOT NULL,
+    CONSTRAINT [PK_ndcproducts_id] PRIMARY KEY CLUSTERED ([id] ASC)
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [indcproducts04]
+    ON [smallforms].[ndcproducts]([SHIP_TO_ZIP] ASC);
+
+
+GO
+CREATE NONCLUSTERED INDEX [indcproducts03]
+    ON [smallforms].[ndcproducts]([SHIP_TO_CUST_NAME] ASC);
+
+
+GO
+CREATE NONCLUSTERED INDEX [indcproducts02]
+    ON [smallforms].[ndcproducts]([SHIP_TO_PHONE] ASC);
+
+
+GO
+CREATE NONCLUSTERED INDEX [indcproducts01]
+    ON [smallforms].[ndcproducts]([SHIP_TO_CUST_NUMBER] ASC);
+

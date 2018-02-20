@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[ts1agents] (
+    [id]            BIGINT        DEFAULT ((0)) NOT NULL,
+    [login]         VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [pwd]           VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [fname]         VARCHAR (100) DEFAULT (N'') NOT NULL,
+    [lname]         VARCHAR (100) DEFAULT (N'') NOT NULL,
+    [email]         VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [remadr]        VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [city]          VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [state]         CHAR (2)      DEFAULT (N'') NOT NULL,
+    [zip]           VARCHAR (10)  DEFAULT (N'') NOT NULL,
+    [datecr]        DATETIME2 (0) DEFAULT ([dbo].[GETDATE]()) NOT NULL,
+    [newsletter]    CHAR (1)      DEFAULT (N'0') NOT NULL,
+    [phonenum]      VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [aimname]       VARCHAR (250) DEFAULT (N'') NOT NULL,
+    [isteamled]     CHAR (1)      DEFAULT (N'0') NOT NULL,
+    [agentid]       VARCHAR (100) DEFAULT (N'') NOT NULL,
+    [isw9]          CHAR (1)      DEFAULT (N'0') NOT NULL,
+    [iscorporateW9] CHAR (1)      DEFAULT (N'0') NOT NULL,
+    [is90days]      CHAR (1)      DEFAULT (N'0') NOT NULL,
+    [onleave]       CHAR (1)      DEFAULT (N'N') NOT NULL,
+    [realfname]     VARCHAR (100) DEFAULT (N'') NOT NULL,
+    [reallname]     VARCHAR (100) DEFAULT (N'') NOT NULL
+);
+

@@ -1,0 +1,47 @@
+﻿
+
+CREATE PROCEDURE [dbo].[uspWSOL_SSRS_SCHEDULE_PROGRAMS]
+ @DATE_BEG		DATETIME
+,@DATE_END		DATETIME
+,@CLIENT_ID		VARCHAR(150)
+AS
+SET NOCOUNT ON
+
+--  EXECUTE [dbo].[uspWSOL_SSRS_SCHEDULE_PROGRAMS] '06/19/2017','06/19/2017','0'
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DECLARE
+ @DTM_BEG AS DATETIME
+,@DTM_END AS DATETIME
+SET @DTM_BEG = CAST(CONVERT(VARCHAR(10),@DATE_BEG,101) AS DATETIME) 
+SET @DTM_END = CAST(CONVERT(VARCHAR(10),@DATE_END,101) AS DATETIME) + 1
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+SET @CLIENT_ID = ',' + LTRIM(RTRIM(@CLIENT_ID)) + ','
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SELECT
+ PRO.PROGRAM_ID
+,PRO.[PROGRAM_NAME]
+FROM 
+(	SELECT
+	 S.IDPROGR	AS PROGRAM_ID
+	,P.[NAME]	AS [PROGRAM_NAME]
+	-- SELECT *
+	FROM SCHTIMES_AGENT S
+	LEFT JOIN PROGRAM	P ON S.IDPROGR = P.ID
+
+	WHERE /*( CAST(S.DATESCH AS DATETIME) >= @DTM_BEG AND CAST(S.DATESCH AS DATETIME) <  @DTM_END )
+	AND */( @CLIENT_ID IN (',,',',0,') OR CHARINDEX(',' + CAST(P.IDCLIENT AS VARCHAR(10)) + ',',@CLIENT_ID) > 0 )
+	  AND ( P.ISSHOW = 1 )
+
+	GROUP BY
+	  S.IDPROGR
+	 ,P.[NAME]
+
+) PRO
+ORDER BY PRO.PROGRAM_ID DESC
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+GO

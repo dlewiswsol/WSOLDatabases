@@ -1,0 +1,28 @@
+﻿CREATE TABLE [smallforms].[ndccustnew01102004] (
+    [id]         BIGINT           DEFAULT ((0)) NOT NULL,
+    [scustname]  VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [scustnum]   VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [sadr1]      VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [sadr2]      VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [scity]      VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [ssate]      VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [szip]       VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [sphone]     VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [semail]     VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [sfax]       VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [prodcode]   VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [proddesc]   VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [saledate]   VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [ccname]     VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [cctype]     VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [ccnum]      VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [expdate]    VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [authnum]    VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [dollamount] VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [agentname]  VARCHAR (250)    DEFAULT (N'') NOT NULL,
+    [datew]      DATETIME2 (0)    DEFAULT ([dbo].[GETDATE]()) NOT NULL,
+    [comm]       VARCHAR (MAX)    NOT NULL,
+    [ssma$rowid] UNIQUEIDENTIFIER DEFAULT (newid()) NOT NULL,
+    CONSTRAINT [PK_ndccustnew01102004_ssma$rowid] PRIMARY KEY CLUSTERED ([ssma$rowid] ASC)
+);
+

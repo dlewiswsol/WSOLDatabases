@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>WSOExternalObjects</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{8321f965-5f4a-450b-b827-7189ed0838e2}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>WSOExternalObjects</RootNamespace>
+    <AssemblyName>WSOExternalObjects</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="External Resources" />
+    <Folder Include="External Resources\Build" />
+    <Folder Include="External Resources\Build\Functions" />
+    <Folder Include="External Resources\Build\StoredProcedures" />
+    <Folder Include="External Resources\Build\Tables" />
+    <Folder Include="External Resources\Build\Views" />
+    <Folder Include="External Resources\Drop" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="External Resources\Build\Functions\TVF_WSOL_MANUAL_MAP_DATA.sql" />
+    <Build Include="External Resources\Build\Functions\TVF_WSOL_SCHEDULE_DATA_BY_INTERVALS.sql" />
+    <Build Include="External Resources\Build\Functions\TVF_WSOL_SCHEDULE_DATA_BY_INTERVALS_WITH_DATE_SCHEDULED.sql" />
+    <Build Include="External Resources\Build\Functions\TVF_WSOL_SCHEDULE_TYPE_DATA_BY_INTERVALS.sql" />
+    <Build Include="External Resources\Build\Functions\TVF_WSOL_WORK_DATA_BY_INTERVALS.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_AGENT_DETAILS.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_AGENT_DETAILS_STATES.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_AGENT_DETAILS_STATUSES.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_AGENT_TENURE.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_AUTO_INVOICE_UNACCEPTED_INVOICES.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_AUTO_INVOICE_UNACCEPTED_INVOICES_CLIENTS.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_AUTO_INVOICE_UNACCEPTED_INVOICES_PROJECTS.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_NAME_ADDRESS_UPDATES.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_SATS_SCANNER_AGENT_STATUSES.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_SATS_SCANNER_CLIENTS.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_SATS_SCANNER_DETAILS.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_SCHEDULE_ADHERENCE_WORK_ADHERENCE.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_SCHEDULE_ADHERENCE_WORK_ADHERENCE_CLIENTS.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_SCHEDULE_BY_INTERVAL_WITH_DATE_SCHEDULED.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_SCHEDULE_BY_INTERVAL_WITH_DATE_SCHEDULED_CLIENTS.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_SCHEDULE_BY_INTERVAL_WITH_DATE_SCHEDULED_PROGRAMS.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_SCHEDULE_CLIENTS.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_SCHEDULE_DETAIL.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_SCHEDULE_PROGRAMS.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_SCHEDULE_STAFFING_BY_PROGRAM.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_SCHEDULE_STAFFING_BY_PROGRAM_CLIENTS.sql" />
+    <Build Include="External Resources\Build\StoredProcedures\uspWSOL_SSRS_SCHEDULE_STAFFING_BY_PROGRAM_PROGRAMS.sql" />
+    <Build Include="External Resources\Build\Tables\WSOL_TB_IMPORTS_APFM_INVOICING.sql" />
+    <Build Include="External Resources\Build\Tables\WSOL_TB_IMPORTS_BRIGHT_PATTERN_INVOICING.sql" />
+    <Build Include="External Resources\Build\Tables\WSOL_TB_IMPORTS_EGENCIA_INVOICING.sql" />
+    <Build Include="External Resources\Build\Tables\WSOL_TB_IMPORTS_GAR_INVOICING.sql" />
+    <Build Include="External Resources\Build\Tables\WSOL_TB_IMPORTS_HUMACH_INVOICING.sql" />
+    <Build Include="External Resources\Build\Tables\WSOL_TB_IMPORTS_MONAT_IC_INVOICING.sql" />
+    <Build Include="External Resources\Build\Tables\WSOL_TB_IMPORTS_MONAT_INVOICING.sql" />
+    <Build Include="External Resources\Build\Tables\WSOL_TB_IMPORTS_MONAT_INVOICING_NEW.sql" />
+    <Build Include="External Resources\Build\Tables\WSOL_TB_IMPORTS_SABRE_INVOICING.sql" />
+    <Build Include="External Resources\Build\Tables\WSOL_TB_IMPORTS_WV_INCONTACT_INVOICING.sql" />
+    <Build Include="External Resources\Build\Tables\YZ_TB_IMPORTS_DATALOT_INVOICING.sql" />
+    <Build Include="External Resources\Build\Tables\YZ_TB_IMPORTS_STUBHUB_INVOICING.sql" />
+    <Build Include="External Resources\Build\Views\WSOL_VW_AGENT_LAST_LOGIN.sql" />
+    <Build Include="External Resources\Build\Views\WSOL_VW_IMPORTS_SALESFORCE_INFORMATICA_WFM.sql" />
+    <Build Include="External Resources\Build\Views\WSOL_VW_IMPORTS_SALESFORCE_INFORMATICA_WFM_IG.sql" />
+    <Build Include="External Resources\Build\Views\WSOL_VW_IMPORTS_VYNE_PATS_ACCESS.sql" />
+    <Build Include="External Resources\Build\Views\WSOL_VW_IMPORTS_VYNE_PATS_ACCESS_IMPIGER.sql" />
+    <Build Include="External Resources\Build\Views\WSOL_VW_PBI_AGENT_LAST_LOGIN_DETAIL.sql" />
+    <Build Include="External Resources\Build\Views\WSOL_VW_PBI_ALL_CATS_STATUSES.sql" />
+    <Build Include="External Resources\Build\Views\WSOL_VW_PBI_EDUCATION_ROSTER_DETAIL.sql" />
+    <Build Include="External Resources\Build\Views\WSOL_VW_PBI_TEST_SCHEDULE_DETAIL.sql" />
+    <Build Include="External Resources\Build\Views\WSOL_VW_SCHEDULE_DETAIL.sql" />
+    <None Include="External Resources\Build\Functions.sql" />
+    <None Include="External Resources\Build\StoredProcedures.sql" />
+    <None Include="External Resources\Build\Tables.sql" />
+    <None Include="External Resources\Build\Views.sql" />
+    <Build Include="External Resources\Drop\ExternalDataSource.sql" />
+    <None Include="External Resources\Drop\Functions.sql" />
+    <Build Include="External Resources\Drop\StoredProcedures.sql" />
+    <None Include="External Resources\Drop\Tables.sql" />
+    <None Include="External Resources\Drop\Views.sql" />
+    <None Include="External Resources\DropAndBuildAll.sql" />
+  </ItemGroup>
+</Project>

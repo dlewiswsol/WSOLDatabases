@@ -69,10 +69,8 @@
     <Folder Include="Security\" />
     <Folder Include="smallforms" />
     <Folder Include="smallforms\Tables" />
-    <Folder Include="Scripts\External Resources" />
     <Folder Include="Scripts\Valid Values" />
-    <Folder Include="Scripts\External Resources\Drop" />
-    <Folder Include="Scripts\External Resources\Build" />
+    <Folder Include="Compare" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\zestcashqaformcalltype.sql" />
@@ -521,23 +519,12 @@
     <Build Include="dbo\Functions\fn_getCatID.sql" />
     <Build Include="dbo\Functions\fn_getRandomPassword.sql" />
     <Build Include="dbo\Tables\stubhubreputiltransfer.sql" />
-    <Build Include="External Resources\GEN_GIM_REMOTE_DATA.sql" />
     <Build Include="dbo\Tables\tmp_APPLICANT.sql" />
     <Build Include="dbo\Views\vw_RANDOM_PWD_GEN.sql" />
     <None Include="Scripts\Valid Values\ABLEOBTAINBB-valid_values.sql" />
     <None Include="Scripts\Valid Values\AGE-valid_values.sql" />
-    <PreDeploy Include="Scripts\External Resources\DropAndBuildAll.sql" />
-    <Build Include="Scripts\External Resources\Drop\StoredProcedures.sql" />
-    <Build Include="Scripts\External Resources\Drop\ExternalDataSource.sql" />
-    <None Include="Scripts\External Resources\Build\Tables.sql" />
-    <None Include="Scripts\External Resources\Build\StoredProcedures.sql" />
-    <None Include="Scripts\External Resources\Build\Functions.sql" />
-    <None Include="Scripts\External Resources\Build\ExternalDataSource.sql" />
-    <None Include="Scripts\External Resources\Build\Views.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Scripts\External Resources\Drop\Tables.sql" />
-    <None Include="Scripts\External Resources\Drop\Views.sql" />
-    <None Include="Scripts\External Resources\Drop\Functions.sql" />
+    <None Include="Compare\Basic Compare.scmp" />
   </ItemGroup>
 </Project>
